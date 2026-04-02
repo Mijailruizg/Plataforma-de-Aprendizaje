@@ -117,7 +117,12 @@ http://127.0.0.1:8000
 
 **Tu Client ID:**
 ```
-235514959061-fjeghor7h40ls2fendbk0bks549324lu.apps.googleusercontent.com
+235514959061-ui8807din6rghcqoou1h2lsqp42mognt.apps.googleusercontent.com
+```
+
+**URI de Redireccionamiento (GitHub Pages):**
+```
+https://mijailruizg.github.io/Plataforma-de-Aprendizaje/
 ```
 
 ---
