@@ -1545,7 +1545,22 @@
                 toast.classList.remove('show');
             }, 3000);
         }
-    </script>
+
+        // Abrir lección
+        function openLesson(lesson) {
+            currentLesson = lesson;
+            document.getElementById('modalNumber').textContent = String(lesson.id).padStart(2, '0');
+            document.getElementById('modalTitle').textContent = lesson.title;
+            document.getElementById('modalSubtitle').textContent = lesson.desc;
+            document.getElementById('modalDescription').textContent = 
+                `En esta lección explorarás ${lesson.title.toLowerCase()} en profundidad. ` +
+                `Aprenderás los conceptos fundamentales, casos de uso prácticos y las últimas tendencias en este campo. ` +
+                `Al finalizar, tendrás un proyecto práctico para aplicar tus conocimientos.`;
+            
+            const btn = document.getElementById('completeBtn');
+            if (completedLessons.includes(lesson.id)) {
+                btn.textContent = 'Lección Completada ✓';
+                btn.style.background = 'linear-gradient(135deg, #00ff88, #00cc6a)';
                 btn.onclick = null;
             } else {
                 btn.textContent = 'Marcar como Completada ✓';
@@ -1605,19 +1620,24 @@
             
             // Limpiar datos
             localStorage.removeItem('userData');
-            localStorage.removeItem('completedLessons');
             userData = null;
-            completedLessons = [];
             
-            // Revocar token de Google
-            if (google && google.accounts) {
-                google.accounts.id.disableAutoSelect();
+            // Revocar token de Google si existe
+            if (window.google && window.google.accounts) {
+                try {
+                    window.google.accounts.id.disableAutoSelect();
+                } catch (e) {
+                    console.log('Google Sign-in no disponible');
+                }
             }
             
             setTimeout(() => {
                 hideLoader();
                 document.getElementById('dashboard').style.display = 'none';
                 document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                switchTab('login');
                 showToast('Sesión Cerrada', 'Has cerrado sesión exitosamente');
             }, 1000);
         }
@@ -1629,18 +1649,6 @@
 
         function hideLoader() {
             document.getElementById('loader').style.display = 'none';
-        }
-
-        // Toast notification
-        function showToast(title, message) {
-            const toast = document.getElementById('toast');
-            toast.querySelector('h4').textContent = title;
-            document.getElementById('toastMessage').textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
         }
     </script>
 </body>
