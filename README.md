@@ -117,7 +117,7 @@ http://127.0.0.1:8000
 
 **Tu Client ID:**
 ```
-94848851465-nib239skv567avoccnei5r8mj2ju94qi.apps.googleusercontent.com
+235514959061-fjeghor7h40ls2fendbk0bks549324lu.apps.googleusercontent.com
 ```
 
 ---
