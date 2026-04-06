@@ -754,6 +754,47 @@
             box-shadow: 0 20px 40px rgba(0, 240, 255, 0.3);
         }
 
+        .notebook-btn {
+            background: linear-gradient(135deg, #00f0ff, #7700ff);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notebook-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .notebook-btn:hover::before {
+            opacity: 0.5;
+        }
+
+        .notebook-btn:hover {
+            background: linear-gradient(135deg, #00f0ff, #ff00ff);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
         /* Loading Animation */
         .loader {
             display: none;
@@ -1139,9 +1180,14 @@
                         </li>
                     </ul>
                     
-                    <button class="complete-btn" id="completeBtn" onclick="markAsComplete()">
-                        Marcar como Completada ✓
-                    </button>
+                    <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                        <button class="complete-btn" id="completeBtn" onclick="markAsComplete()" style="flex: 1; min-width: 200px;">
+                            Marcar como Completada ✓
+                        </button>
+                        <button class="notebook-btn" id="notebookBtn" onclick="openNotebook()" style="flex: 1; min-width: 200px;">
+                            📖 Acceder al Notebook
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1164,21 +1210,21 @@
 
         // Datos de las 15 lecciones
         const lessonsData = [
-            { id: 1, title: "Fundamentos del Futuro", desc: "Introducción a las tecnologías emergentes y su impacto en la sociedad.", duration: "45 min", icon: "🚀", locked: false },
-            { id: 2, title: "Inteligencia Artificial", desc: "Conceptos básicos de IA y machine learning para principiantes.", duration: "60 min", icon: "🤖", locked: false },
-            { id: 3, title: "Realidad Extendida", desc: "VR, AR y MR: Explorando nuevos mundos digitales.", duration: "50 min", icon: "🥽", locked: false },
-            { id: 4, title: "Blockchain Descentralizado", desc: "Entendiendo la tecnología detrás de las criptomonedas.", duration: "55 min", icon: "⛓", locked: true },
-            { id: 5, title: "Computación Cuántica", desc: "El futuro de la computación y sus aplicaciones prácticas.", duration: "65 min", icon: "⚛", locked: true },
-            { id: 6, title: "IoT y Conectividad", desc: "El Internet de las Cosas y la revolución de los dispositivos conectados.", duration: "40 min", icon: "📡", locked: true },
-            { id: 7, title: "Ciberseguridad Avanzada", desc: "Protegiendo datos en la era digital moderna.", duration: "70 min", icon: "🔒", locked: true },
-            { id: 8, title: "Automatización Robótica", desc: "RPA y su implementación en procesos empresariales.", duration: "45 min", icon: "🦾", locked: true },
-            { id: 9, title: "Big Data & Analytics", desc: "Análisis de datos masivos para la toma de decisiones.", duration: "60 min", icon: "📊", locked: true },
-            { id: 10, title: "5G y Telecomunicaciones", desc: "La nueva era de la conectividad ultrarrápida.", duration: "50 min", icon: "📶", locked: true },
-            { id: 11, title: "Energías Renovables", desc: "Tecnología verde y sostenibilidad energética.", duration: "55 min", icon: "⚡", locked: true },
-            { id: 12, title: "Biotecnología", desc: "Innovaciones en salud y medicina personalizada.", duration: "65 min", icon: "🧬", locked: true },
-            { id: 13, title: "Nanotecnología", desc: "Manipulación de materia a escala atómica.", duration: "60 min", icon: "🔬", locked: true },
-            { id: 14, title: "Transporte del Futuro", desc: "Vehículos autónomos y movilidad urbana.", duration: "45 min", icon: "🚗", locked: true },
-            { id: 15, title: "Proyecto Final Integrador", desc: "Aplicación práctica de todos los conocimientos adquiridos.", duration: "90 min", icon: "🏆", locked: true }
+            // MODULO 1: ORATORIA
+            { id: 1, title: "Libere su personalidad de orador", desc: "Descubre y potencia tu estilo único como orador, desarrollando tu voz personal y carisma natural.", duration: "45 min", icon: "🎤", locked: false, module: "ORATORIA", url: "https://notebooklm.google.com/notebook/de713699-17bb-4385-8f8e-093cb69842dd" },
+            { id: 2, title: "El arte de hablar con estructura", desc: "Aprende a organizar tus discursos con estructura, lógica y flujo que cautive a tu audiencia.", duration: "50 min", icon: "📐", locked: false, module: "ORATORIA", url: "https://notebooklm.google.com/notebook/9478fea4-1c5c-41f2-a300-1c8ca5eb64bf" },
+            { id: 3, title: "Habla para que te escuchen", desc: "Técnicas fundamentales para que tu mensaje llegue claro, directo y memorable a cualquier público.", duration: "48 min", icon: "👂", locked: false, module: "ORATORIA", url: "https://notebooklm.google.com/notebook/be127691-4780-49ed-b05c-a2959f250fb9" },
+            { id: 4, title: "La voz magnética", desc: "Desarrolla el poder de tu voz: entonación, resonancia, y presencia vocal que hipnotiza a la audiencia.", duration: "55 min", icon: "🎵", locked: false, module: "ORATORIA", url: "https://notebooklm.google.com/notebook/267f3cad-db12-4c2d-9f9a-419192c92497" },
+            { id: 5, title: "El arte del control vocal", desc: "Domina todas las dimensiones de tu voz: ritmo, pausa, énfasis y modulación para máximo impacto.", duration: "60 min", icon: "🎙", locked: false, module: "ORATORIA", url: "https://notebooklm.google.com/notebook/2298e729-84a5-41e2-a09f-2dde068708aa" },
+            
+            // MODULO 2: CARISMA
+            { id: 6, title: "El poder de la primera impresión", desc: "Causa un impacto irresistible en los primeros segundos: presencia, lenguaje corporal y energía.", duration: "45 min", icon: "✨", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/174360ee-979e-4064-9180-e119fc53cea8" },
+            { id: 7, title: "La confianza de los iconos", desc: "Construye una confianza inquebrantable como la de los grandes líderes y comunicadores del mundo.", duration: "55 min", icon: "👑", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/07879d30-ce96-40f5-aef2-1c39e0ef4814" },
+            { id: 8, title: "El arte de contar historias", desc: "Domina el storytelling: convierte experiencias en narrativas que emocionan e inspiran a tu audiencia.", duration: "60 min", icon: "📖", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/a4a2603a-6a39-4b8b-b9b2-fffbbac323ec" },
+            { id: 9, title: "Dominar la comunicación persuasiva", desc: "Técnicas probadas de persuasión: cómo influir, convencer y movilizar con elegancia y ética.", duration: "65 min", icon: "💫", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/629ae56c-dcae-4756-bcc8-93800853460f" },
+            { id: 10, title: "El arte de las conversaciones triviales", desc: "Transforma charlas casuales en conexiones profundas: cómo iniciar, desarrollar y cerrar conversaciones.", duration: "50 min", icon: "💬", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/c56606c1-568c-409b-94ae-209a289b4236" },
+            { id: 11, title: "La atención en grupo", desc: "Mantén el control y la atención del grupo: energía, sincronización y lectura de audiencias grandes.", duration: "55 min", icon: "👥", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/3a295d78-2aa5-4e59-910b-0702071260fc" },
+            { id: 12, title: "El poder del humor", desc: "Domina el arte de hacer reír con inteligencia: timing, relevancia y autenticidad en el humor.", duration: "50 min", icon: "😄", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/4f87a1cb-febf-4d5b-8502-14f01fb575dd" }
         ];
 
         let currentLesson = null;
@@ -1251,7 +1297,6 @@
 
                 hideLoader();
                 showDashboard();
-                showToast('¡Bienvenido!', `Sesión iniciada como ${userData.name}`);
             }, 1000);
         }
 
@@ -1369,7 +1414,6 @@
                 setTimeout(() => {
                     hideLoader();
                     showDashboard();
-                    showToast('¡Bienvenido!', `Sesión iniciada como ${userData.name}`);
                 }, 1500);
             } catch (error) {
                 hideLoader();
@@ -1412,17 +1456,7 @@
                     <h3 class="lesson-title">${lesson.title}</h3>
                     <p class="lesson-desc">${lesson.desc}</p>
                     <div class="lesson-meta">
-                        <span class="lesson-duration">⏱ ${lesson.duration}</span>
-                        <span class="lesson-status ${isCompleted ? 'status-completed' : isLocked ? 'status-locked' : 'status-pending'}">
-                            ${isCompleted ? 'Completada' : isLocked ? 'Bloqueada' : 'Pendiente'}
-                        </span>
                     </div>
-                    ${isLocked ? `
-                        <div class="locked-overlay">
-                            <span class="lock-icon">🔒</span>
-                            <span class="lock-text">Completa la lección anterior</span>
-                        </div>
-                    ` : ''}
                 `;
                 
                 grid.appendChild(card);
@@ -1431,6 +1465,13 @@
 
         // Abrir lección
         function openLesson(lesson) {
+            // Abrir directamente el Google Notebook si existe
+            if (lesson && lesson.url) {
+                window.open(lesson.url, '_blank');
+                return;
+            }
+            
+            // Fallback al modal si no hay URL
             currentLesson = lesson;
             document.getElementById('modalNumber').textContent = String(lesson.id).padStart(2, '0');
             document.getElementById('modalTitle').textContent = lesson.title;
@@ -1521,7 +1562,6 @@
                 document.getElementById('loginEmail').value = '';
                 document.getElementById('loginPassword').value = '';
                 switchTab('login');
-                showToast('Sesión Cerrada', 'Has cerrado sesión exitosamente');
             }, 1000);
         }
 
@@ -1548,6 +1588,13 @@
 
         // Abrir lección
         function openLesson(lesson) {
+            // Abrir directamente el Google Notebook si existe
+            if (lesson && lesson.url) {
+                window.open(lesson.url, '_blank');
+                return;
+            }
+            
+            // Fallback al modal si no hay URL
             currentLesson = lesson;
             document.getElementById('modalNumber').textContent = String(lesson.id).padStart(2, '0');
             document.getElementById('modalTitle').textContent = lesson.title;
@@ -1638,7 +1685,6 @@
                 document.getElementById('loginEmail').value = '';
                 document.getElementById('loginPassword').value = '';
                 switchTab('login');
-                showToast('Sesión Cerrada', 'Has cerrado sesión exitosamente');
             }, 1000);
         }
 
@@ -1649,6 +1695,13 @@
 
         function hideLoader() {
             document.getElementById('loader').style.display = 'none';
+        }
+
+        // Abrir Google Notebook
+        function openNotebook() {
+            if (currentLesson && currentLesson.url) {
+                window.open(currentLesson.url, '_blank');
+            }
         }
     </script>
 </body>
