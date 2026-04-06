@@ -1233,7 +1233,7 @@
             font-family: 'Orbitron', sans-serif;
             cursor: pointer;
             border-bottom: 2px solid transparent;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             text-transform: uppercase;
             font-weight: 600;
             letter-spacing: 1px;
@@ -1242,6 +1242,11 @@
         .auth-tab.active {
             color: var(--primary);
             border-bottom-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(30, 136, 229, 0.1);
+        }
+
+        .auth-tab:hover {
+            color: rgba(255,255,255,0.8);
         }
 
         .auth-form {
@@ -1262,14 +1267,18 @@
             color: #fff;
             font-family: 'Rajdhani', sans-serif;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:hover {
+            border-color: rgba(30, 136, 229, 0.4);
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--primary);
-            background: rgba(30, 136, 229, 0.08);
-            box-shadow: 0 0 15px rgba(30, 136, 229, 0.1);
+            background: rgba(30, 136, 229, 0.06);
+            box-shadow: inset 0 0 10px rgba(30, 136, 229, 0.05), 0 0 20px rgba(30, 136, 229, 0.1);
         }
 
         .form-button {
@@ -1277,7 +1286,7 @@
             padding: 15px;
             border: none;
             border-radius: 10px;
-            color: #000;
+            color: #fff;
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
             cursor: pointer;
@@ -1285,7 +1294,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 20px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .login-button {
@@ -1294,7 +1303,8 @@
 
         .login-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.15);
+            box-shadow: 0 15px 40px rgba(30, 136, 229, 0.2);
+            opacity: 0.95;
         }
 
         .register-button {
@@ -1303,7 +1313,8 @@
 
         .register-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.15);
+            box-shadow: 0 15px 40px rgba(30, 136, 229, 0.2);
+            opacity: 0.95;
         }
 
         .tabs-container {
