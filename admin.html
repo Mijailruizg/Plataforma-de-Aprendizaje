@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Nexus Learning</title>
+    <title>Admin Panel - Nexus Learning</title>
     
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         * {
@@ -80,6 +79,42 @@
             font-size: 0.9rem;
         }
 
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        input, select {
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(30, 136, 229, 0.3);
+            color: #fff;
+            border-radius: 8px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.3);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -121,13 +156,11 @@
         .badge-google {
             background: rgba(66, 133, 244, 0.2);
             color: #42a5f5;
-            border: 1px solid #42a5f5;
         }
 
         .badge-manual {
             background: rgba(38, 166, 154, 0.2);
             color: #26a69a;
-            border: 1px solid #26a69a;
         }
 
         .loading {
@@ -146,79 +179,48 @@
             margin-top: 20px;
         }
 
-        button {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border: none;
-            color: #fff;
-            padding: 12px 30px;
+        .success {
+            background: rgba(38, 166, 154, 0.1);
+            border: 1px solid #26a69a;
+            padding: 20px;
             border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            margin-top: 20px;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.3);
-        }
-
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 20px;
-            border: 1px solid rgba(30, 136, 229, 0.3);
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-        }
-
-        .filter-btn:hover {
-            border-color: var(--primary);
-            color: #fff;
-            transform: none;
+            color: #26a69a;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📊 Panel Admin - Nexus Learning</h1>
-            <p>Dashboard de Usuarios Registrados</p>
+            <h1>📊 Admin Panel - Nexus Learning</h1>
+            <p>Base de Datos PostgreSQL (Supabase)</p>
         </header>
 
         <div class="stats">
             <div class="stat-card">
                 <div class="stat-number" id="totalUsers">0</div>
-                <div class="stat-label">Total de Usuarios</div>
+                <div class="stat-label">Total Usuarios</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="googleUsers">0</div>
-                <div class="stat-label">Registros Google</div>
+                <div class="stat-label">Login Google</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="manualUsers">0</div>
-                <div class="stat-label">Registros Manuales</div>
+                <div class="stat-label">Login Manual</div>
             </div>
         </div>
 
-        <div class="filters">
-            <button class="filter-btn active" onclick="filterUsers('all')">Todos</button>
-            <button class="filter-btn" onclick="filterUsers('google')">Google</button>
-            <button class="filter-btn" onclick="filterUsers('manual')">Manual</button>
+        <div id="successMsg" class="success" style="display: none;"></div>
+
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Buscar por nombre o email...">
+            <select id="filterMethod">
+                <option value="">Filtrar por método...</option>
+                <option value="google">Google</option>
+                <option value="manual">Manual</option>
+            </select>
+            <button onclick="loadUsers()">🔄 Actualizar</button>
             <button onclick="exportToCSV()">📥 Exportar CSV</button>
         </div>
 
@@ -230,8 +232,8 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Email</th>
-                    <th>Método</th>
-                    <th>Fecha de Registro</th>
+                    <th>Método Login</th>
+                    <th>Fecha Registro</th>
                     <th>Último Acceso</th>
                     <th>Estado</th>
                 </tr>
@@ -242,58 +244,57 @@
     </div>
 
     <script>
-        // Configuración Firebase (actualiza con tus credenciales)
-        const firebaseConfig = {
-            apiKey: "AIzaSyC4R6vK7xJ2nQ8mP3lW5dY9kA0bB1cC2e",
-            authDomain: "nexus-learning-app.firebaseapp.com",
-            projectId: "nexus-learning-app",
-            storageBucket: "nexus-learning-app.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890"
-        };
-
-        let db = null;
+        // ⚠️ ACTUALIZA ESTAS CREDENCIALES CON LAS TUYAS
+        const SUPABASE_URL = 'https://tu-proyecto.supabase.co';
+        const SUPABASE_KEY = 'tu-anon-key';
+        
+        let supabase = null;
         let allUsers = [];
-        let currentFilter = 'all';
 
-        // Inicializar Firebase
+        // Inicializar Supabase
         try {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore();
+            const { createClient } = window.supabase;
+            supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+            console.log('✅ Supabase conectado');
             loadUsers();
         } catch (error) {
-            showError('Firebase no disponible. Verifica tu configuración.');
-            console.error('Firebase error:', error);
+            showError('Error: No se pudo conectar a Supabase. Verifica las credenciales.');
+            console.error(error);
         }
 
-        // Cargar usuarios desde Firestore
+        // Cargar usuarios
         async function loadUsers() {
             try {
-                const snapshot = await db.collection('users').orderBy('timestamp', 'desc').get();
-                allUsers = [];
-                
-                snapshot.forEach(doc => {
-                    allUsers.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
-                });
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('usersTable').style.display = 'none';
 
+                const { data, error } = await supabase
+                    .from('usuarios')
+                    .select('*')
+                    .order('fecha_registro', { ascending: false });
+
+                if (error) throw error;
+
+                allUsers = data || [];
                 updateStats();
                 displayUsers(allUsers);
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('usersTable').style.display = 'table';
+                
+                if (allUsers.length > 0) {
+                    showSuccess(`✅ ${allUsers.length} usuario(s) cargado(s)`);
+                }
             } catch (error) {
                 showError('Error al cargar usuarios: ' + error.message);
-                console.error('Error:', error);
+                console.error(error);
             }
         }
 
         // Actualizar estadísticas
         function updateStats() {
             const total = allUsers.length;
-            const google = allUsers.filter(u => u.loginMethod === 'google').length;
-            const manual = allUsers.filter(u => u.loginMethod === 'manual').length;
+            const google = allUsers.filter(u => u.metodo_login === 'google').length;
+            const manual = allUsers.filter(u => u.metodo_login === 'manual').length;
 
             document.getElementById('totalUsers').textContent = total;
             document.getElementById('googleUsers').textContent = google;
@@ -306,72 +307,81 @@
             tbody.innerHTML = '';
 
             if (users.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;">Sin usuarios aún</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">Sin usuarios aún</td></tr>';
                 return;
             }
 
             users.forEach(user => {
                 const row = document.createElement('tr');
-                const timestamp = user.timestamp ? new Date(user.timestamp.toDate()).toLocaleString('es-ES') : 'N/A';
-                const lastLogin = user.lastLogin ? new Date(user.lastLogin.toDate()).toLocaleString('es-ES') : 'N/A';
-                const badgeClass = user.loginMethod === 'google' ? 'badge-google' : 'badge-manual';
-                const methodLabel = user.loginMethod === 'google' ? 'Google' : 'Manual';
+                const badgeClass = user.metodo_login === 'google' ? 'badge-google' : 'badge-manual';
+                const methodLabel = user.metodo_login === 'google' ? 'Google' : 'Manual';
+                const fechaRegistro = new Date(user.fecha_registro).toLocaleString('es-ES');
+                const ultimoAcceso = new Date(user.ultimo_acceso).toLocaleString('es-ES');
 
                 row.innerHTML = `
-                    <td><strong>${user.name || 'N/A'}</strong></td>
-                    <td>${user.email || 'N/A'}</td>
+                    <td>${user.nombre}</td>
+                    <td>${user.email}</td>
                     <td><span class="badge ${badgeClass}">${methodLabel}</span></td>
-                    <td>${timestamp}</td>
-                    <td>${lastLogin}</td>
-                    <td><span style="color: #26a69a; font-weight: 600;">${user.status || 'active'}</span></td>
+                    <td>${fechaRegistro}</td>
+                    <td>${ultimoAcceso}</td>
+                    <td><span style="color: #26a69a;">●</span> ${user.estado}</td>
                 `;
                 tbody.appendChild(row);
             });
         }
 
-        // Filtrar usuarios
-        function filterUsers(method) {
-            currentFilter = method;
-            
-            // Actualizar botones
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+        // Búsqueda
+        document.getElementById('searchInput').addEventListener('keyup', filterUsers);
+        document.getElementById('filterMethod').addEventListener('change', filterUsers);
 
-            // Filtrar y mostrar
-            if (method === 'all') {
-                displayUsers(allUsers);
-            } else {
-                const filtered = allUsers.filter(u => u.loginMethod === method);
-                displayUsers(filtered);
-            }
+        function filterUsers() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const methodFilter = document.getElementById('filterMethod').value;
+
+            let filtered = allUsers.filter(user => {
+                const matchSearch = !searchText || 
+                    user.nombre.toLowerCase().includes(searchText) || 
+                    user.email.toLowerCase().includes(searchText);
+                
+                const matchMethod = !methodFilter || user.metodo_login === methodFilter;
+                
+                return matchSearch && matchMethod;
+            });
+
+            displayUsers(filtered);
         }
 
         // Exportar a CSV
         function exportToCSV() {
-            let csv = 'Nombre,Email,Método,Fecha de Registro,Último Acceso,Estado\n';
+            let csv = 'Nombre,Email,Método,Fecha Registro,Último Acceso,Estado\n';
             
-            (currentFilter === 'all' ? allUsers : allUsers.filter(u => u.loginMethod === currentFilter)).forEach(user => {
-                const timestamp = user.timestamp ? new Date(user.timestamp.toDate()).toLocaleString('es-ES') : 'N/A';
-                const lastLogin = user.lastLogin ? new Date(user.lastLogin.toDate()).toLocaleString('es-ES') : 'N/A';
-                
-                csv += `"${user.name}","${user.email}","${user.loginMethod}","${timestamp}","${lastLogin}","${user.status}"\n`;
+            allUsers.forEach(user => {
+                const fechaRegistro = new Date(user.fecha_registro).toLocaleString('es-ES');
+                const ultimoAcceso = new Date(user.ultimo_acceso).toLocaleString('es-ES');
+                csv += `"${user.nombre}","${user.email}","${user.metodo_login}","${fechaRegistro}","${ultimoAcceso}","${user.estado}"\n`;
             });
 
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'usuarios_nexus_' + new Date().toISOString().split('T')[0] + '.csv';
-            a.click();
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.setAttribute('href', URL.createObjectURL(blob));
+            link.setAttribute('download', `usuarios_nexus_${new Date().toISOString().split('T')[0]}.csv`);
+            link.click();
         }
 
-        // Mostrar errores
+        // Mostrar error
         function showError(message) {
-            const errorDiv = document.getElementById('error');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
+            document.getElementById('error').textContent = message;
+            document.getElementById('error').style.display = 'block';
+        }
+
+        // Mostrar éxito
+        function showSuccess(message) {
+            const msg = document.getElementById('successMsg');
+            msg.textContent = message;
+            msg.style.display = 'block';
+            setTimeout(() => {
+                msg.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>

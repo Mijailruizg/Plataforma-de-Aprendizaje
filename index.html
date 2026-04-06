@@ -8,10 +8,8 @@
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <!-- Supabase (PostgreSQL Database) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -1464,43 +1462,46 @@
 
     <script>
         // ==========================================
-        // CONFIGURACIÓN DE FIREBASE
+        // CONFIGURACIÓN DE SUPABASE (PostgreSQL)
         // ==========================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyC4R6vK7xJ2nQ8mP3lW5dY9kA0bB1cC2e",
-            authDomain: "nexus-learning-app.firebaseapp.com",
-            projectId: "nexus-learning-app",
-            storageBucket: "nexus-learning-app.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890"
-        };
-
-        // Inicializar Firebase
-        let db = null;
+        const SUPABASE_URL = 'https://tu-proyecto.supabase.co';
+        const SUPABASE_KEY = 'tu-anon-key';
+        
+        let supabase = null;
+        
+        // Inicializar Supabase
         try {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore();
-            console.log('Firebase inicializado correctamente');
+            const { createClient } = window.supabase;
+            supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+            console.log('Supabase conectado');
         } catch (error) {
-            console.log('Firebase no disponible, usando localStorage:', error);
+            console.log('Supabase no disponible, usando localStorage');
         }
 
-        // Función para guardar usuario en Firestore
-        async function saveUserToFirebase(userData, method) {
-            if (!db) return; // Si Firebase no está disponible, continuar normalmente
+        // Función para guardar usuario en Supabase
+        async function saveUserToDatabase(userData, method) {
+            if (!supabase) return;
             
             try {
-                await db.collection('users').add({
-                    name: userData.name,
-                    email: userData.email,
-                    loginMethod: method, // 'manual' o 'google'
-                    timestamp: new Date(),
-                    lastLogin: new Date(),
-                    status: 'active'
-                });
-                console.log('Usuario guardado en Firebase');
+                const { error } = await supabase
+                    .from('usuarios')
+                    .insert([{
+                        nombre: userData.name,
+                        email: userData.email,
+                        metodo_login: method, // 'manual' o 'google'
+                        foto_url: userData.picture || null,
+                        fecha_registro: new Date().toISOString(),
+                        ultimo_acceso: new Date().toISOString(),
+                        estado: 'activo'
+                    }]);
+                
+                if (error) {
+                    console.log('Error al guardar en BD:', error);
+                } else {
+                    console.log('Usuario guardado en Supabase');
+                }
             } catch (error) {
-                console.log('Error al guardar en Firebase:', error);
+                console.log('Error:', error);
             }
         }
 
@@ -1592,8 +1593,8 @@
                     loginMethod: 'manual'
                 };
 
-                // Guardar en Firebase
-                saveUserToFirebase(userData, 'manual');
+                // Guardar en Supabase
+                saveUserToDatabase(userData, 'manual');
 
                 localStorage.setItem('userData', JSON.stringify(userData));
                 document.getElementById('loginEmail').value = '';
@@ -1658,8 +1659,8 @@
                     loginMethod: 'manual'
                 };
 
-                // Guardar en Firebase
-                saveUserToFirebase(userData, 'manual');
+                // Guardar en Supabase
+                saveUserToDatabase(userData, 'manual');
 
                 localStorage.setItem('userData', JSON.stringify(userData));
 
@@ -1715,8 +1716,8 @@
                     loginMethod: 'google'
                 };
                 
-                // Guardar en Firebase
-                saveUserToFirebase(userData, 'google');
+                // Guardar en Supabase
+                saveUserToDatabase(userData, 'google');
                 
                 // Guardar en localStorage
                 localStorage.setItem('userData', JSON.stringify(userData));
