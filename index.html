@@ -8,6 +8,11 @@
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     
@@ -1459,6 +1464,47 @@
 
     <script>
         // ==========================================
+        // CONFIGURACIÓN DE FIREBASE
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyC4R6vK7xJ2nQ8mP3lW5dY9kA0bB1cC2e",
+            authDomain: "nexus-learning-app.firebaseapp.com",
+            projectId: "nexus-learning-app",
+            storageBucket: "nexus-learning-app.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef1234567890"
+        };
+
+        // Inicializar Firebase
+        let db = null;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            console.log('Firebase inicializado correctamente');
+        } catch (error) {
+            console.log('Firebase no disponible, usando localStorage:', error);
+        }
+
+        // Función para guardar usuario en Firestore
+        async function saveUserToFirebase(userData, method) {
+            if (!db) return; // Si Firebase no está disponible, continuar normalmente
+            
+            try {
+                await db.collection('users').add({
+                    name: userData.name,
+                    email: userData.email,
+                    loginMethod: method, // 'manual' o 'google'
+                    timestamp: new Date(),
+                    lastLogin: new Date(),
+                    status: 'active'
+                });
+                console.log('Usuario guardado en Firebase');
+            } catch (error) {
+                console.log('Error al guardar en Firebase:', error);
+            }
+        }
+
+        // ==========================================
         // TU CLIENT ID DE GOOGLE CONFIGURADO
         // ==========================================
         const GOOGLE_CLIENT_ID = '235514959061-ui8807din6rghcqoou1h2lsqp42mognt.apps.googleusercontent.com';
@@ -1546,6 +1592,9 @@
                     loginMethod: 'manual'
                 };
 
+                // Guardar en Firebase
+                saveUserToFirebase(userData, 'manual');
+
                 localStorage.setItem('userData', JSON.stringify(userData));
                 document.getElementById('loginEmail').value = '';
                 document.getElementById('loginPassword').value = '';
@@ -1609,6 +1658,9 @@
                     loginMethod: 'manual'
                 };
 
+                // Guardar en Firebase
+                saveUserToFirebase(userData, 'manual');
+
                 localStorage.setItem('userData', JSON.stringify(userData));
 
                 // Limpiar formulario
@@ -1662,6 +1714,9 @@
                     token: credential,
                     loginMethod: 'google'
                 };
+                
+                // Guardar en Firebase
+                saveUserToFirebase(userData, 'google');
                 
                 // Guardar en localStorage
                 localStorage.setItem('userData', JSON.stringify(userData));
