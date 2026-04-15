@@ -148,6 +148,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            background-size: auto;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -315,6 +316,8 @@
             background: linear-gradient(135deg, #fff, #1e88e5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: auto;
         }
 
         .welcome-subtitle {
@@ -1338,24 +1341,8 @@
                 <span>ó</span>
             </div>
 
-            <!-- Google Sign In - TU CLIENT ID CONFIGURADO -->
-            <div id="g_id_onload"
-                 data-client_id="235514959061-ui8807din6rghcqoou1h2lsqp42mognt.apps.googleusercontent.com"
-                 data-context="signin"
-                 data-ux_mode="popup"
-                 data-callback="handleCredentialResponse"
-                 data-auto_prompt="false">
-            </div>
-            
-            <div class="g_id_signin"
-                 data-type="standard"
-                 data-shape="pill"
-                 data-theme="filled_black"
-                 data-text="signin_with"
-                 data-size="large"
-                 data-logo_alignment="left"
-                 data-width="300">
-            </div>
+            <!-- Google Sign In Container -->
+            <div id="googleSignInButton"></div>
 
             <div class="features">
 
@@ -1652,21 +1639,29 @@
                     client_id: GOOGLE_CLIENT_ID,
                     callback: handleCredentialResponse,
                     auto_select: false,
-                    itp_support: true
+                    itp_support: true,
+                    uxMode: 'popup'
                 });
+
+                // Deshabilitar auto-select para evitar comportamientos inesperados
+                window.google.accounts.id.disableAutoSelect();
 
                 // Renderizar el botón de Google Sign-In
                 const signInButton = document.getElementById('googleSignInButton');
-                if (signInButton) {
-                    window.google.accounts.id.renderButton(
-                        signInButton,
-                        {
-                            theme: 'dark',
-                            size: 'large',
-                            width: '100%',
-                            text: 'signin_with'
-                        }
-                    );
+                if (signInButton && signInButton.children.length === 0) {
+                    try {
+                        window.google.accounts.id.renderButton(
+                            signInButton,
+                            {
+                                theme: 'dark',
+                                size: 'large',
+                                width: '100%',
+                                text: 'signin_with'
+                            }
+                        );
+                    } catch (e) {
+                        console.log('Error renderizando botón:', e);
+                    }
                 }
             } else {
                 // Re-intentar en 500ms si Google aún no está cargado
@@ -1676,10 +1671,9 @@
 
         // Manejar respuesta de Google
         function handleCredentialResponse(response) {
-            // Verificar si ya hay una sesión activa
-            const existingUser = localStorage.getItem('userData');
-            if (existingUser && userData) {
-                // Si ya hay sesión, mostrar dashboard directamente
+            // Prevenir múltiples ejecuciones
+            if (userData) {
+                console.log('Ya existe sesión activa');
                 showDashboard();
                 return;
             }
@@ -1699,27 +1693,30 @@
                     token: credential,
                     loginMethod: 'google'
                 };
-                
+
                 // Guardar en localStorage
                 localStorage.setItem('userData', JSON.stringify(userData));
                 
-                // Deshabilitar auto-select para evitar redirecciones
+                // Deshabilitar auto-select inmediatamente
                 if (window.google && window.google.accounts) {
-                    window.google.accounts.id.disableAutoSelect();
+                    try {
+                        window.google.accounts.id.disableAutoSelect();
+                    } catch (e) {
+                        console.log('Error deshabilitando auto-select');
+                    }
                 }
                 
+                // Mostrar dashboard después de un pequeño delay
                 setTimeout(() => {
                     hideLoader();
-                    // Asegurar una sola llamada a showDashboard
                     showDashboard();
-                }, 1500);
+                }, 800);
+                
             } catch (error) {
+                userData = null; // Reset userData
                 hideLoader();
                 console.error('Error al procesar login:', error);
-                showToast('Error', 'No se pudo iniciar sesión. Por favor, intenta de nuevo o usa login manual.');
-                
-                // Reintentar inicializar Google Sign-In
-                initializeGoogleSignIn();
+                showToast('Error', 'No se pudo iniciar sesión. Por favor, usa login manual.');
             }
         }
 
@@ -1874,7 +1871,10 @@
                 document.getElementById('loginEmail').value = '';
                 document.getElementById('loginPassword').value = '';
                 switchTab('login');
-            }, 1000);
+                
+                // Reinitializar Google Sign-In
+                initializeGoogleSignIn();
+            }, 800);
         }
 
         // Loader
@@ -1896,117 +1896,6 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
-        }
-
-        // Abrir lección
-        function openLesson(lesson) {
-            // Abrir directamente el Google Notebook si existe
-            if (lesson && lesson.url) {
-                window.open(lesson.url, '_blank');
-                return;
-            }
-            
-            // Fallback al modal si no hay URL
-            currentLesson = lesson;
-            document.getElementById('modalNumber').textContent = String(lesson.id).padStart(2, '0');
-            document.getElementById('modalTitle').textContent = lesson.title;
-            document.getElementById('modalSubtitle').textContent = lesson.desc;
-            document.getElementById('modalDescription').textContent = 
-                `En esta lección explorarás ${lesson.title.toLowerCase()} en profundidad. ` +
-                `Aprenderás los conceptos fundamentales, casos de uso prácticos y las últimas tendencias en este campo. ` +
-                `Al finalizar, tendrás un proyecto práctico para aplicar tus conocimientos.`;
-            
-            const btn = document.getElementById('completeBtn');
-            if (completedLessons.includes(lesson.id)) {
-                btn.textContent = 'Lección Completada ✓';
-                btn.style.background = 'linear-gradient(135deg, #26a69a, #00897b)';
-                btn.onclick = null;
-            } else {
-                btn.textContent = 'Marcar como Completada ✓';
-                btn.style.background = 'linear-gradient(135deg, var(--primary), var(--accent))';
-                btn.onclick = markAsComplete;
-            }
-            
-            document.getElementById('lessonModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Cerrar modal
-        function closeModal(event) {
-            if (!event || event.target.id === 'lessonModal' || event.target.className === 'modal-close') {
-                document.getElementById('lessonModal').style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        // Marcar como completada
-        function markAsComplete() {
-            if (!completedLessons.includes(currentLesson.id)) {
-                completedLessons.push(currentLesson.id);
-                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-                
-                // Desbloquear siguiente lección
-                const nextLesson = lessonsData.find(l => l.id === currentLesson.id + 1);
-                if (nextLesson) {
-                    nextLesson.locked = false;
-                }
-                
-                renderLessons();
-                updateProgress();
-                
-                document.getElementById('completeBtn').textContent = 'Lección Completada ✓';
-                document.getElementById('completeBtn').style.background = 'linear-gradient(135deg, #26a69a, #00897b)';
-                
-                showToast('¡Felicitaciones!', `Has completado: ${currentLesson.title}`);
-                
-                setTimeout(() => closeModal(), 1500);
-            }
-        }
-
-        // Actualizar progreso
-        function updateProgress() {
-            const completed = completedLessons.length;
-            const total = lessonsData.length;
-            const percentage = (completed / total) * 100;
-            
-            document.getElementById('completedCount').textContent = completed;
-            document.getElementById('progressFill').style.width = percentage + '%';
-        }
-
-        // Cerrar sesión
-        function logout() {
-            showLoader();
-            
-            // Limpiar datos
-            localStorage.removeItem('userData');
-            userData = null;
-            
-            // Revocar token de Google si existe
-            if (window.google && window.google.accounts) {
-                try {
-                    window.google.accounts.id.disableAutoSelect();
-                } catch (e) {
-                    console.log('Google Sign-in no disponible');
-                }
-            }
-            
-            setTimeout(() => {
-                hideLoader();
-                document.getElementById('dashboard').style.display = 'none';
-                document.getElementById('loginScreen').style.display = 'flex';
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-                switchTab('login');
-            }, 1000);
-        }
-
-        // Loader
-        function showLoader() {
-            document.getElementById('loader').style.display = 'flex';
-        }
-
-        function hideLoader() {
-            document.getElementById('loader').style.display = 'none';
         }
 
         // Abrir Google Notebook
