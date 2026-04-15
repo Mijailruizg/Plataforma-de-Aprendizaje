@@ -167,6 +167,16 @@
             justify-content: center;
         }
 
+        #googleSignInButton {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        #googleSignInButton > div {
+            width: 100%;
+        }
+
         .divider {
             display: flex;
             align-items: center;
@@ -1635,46 +1645,61 @@
         // Inicializar Google Sign-In
         function initializeGoogleSignIn() {
             if (window.google && window.google.accounts) {
-                window.google.accounts.id.initialize({
-                    client_id: GOOGLE_CLIENT_ID,
-                    callback: handleCredentialResponse,
-                    auto_select: false,
-                    itp_support: true,
-                    uxMode: 'popup'
-                });
+                try {
+                    window.google.accounts.id.initialize({
+                        client_id: GOOGLE_CLIENT_ID,
+                        callback: handleCredentialResponse,
+                        auto_select: false,
+                        itp_support: true
+                    });
 
-                // Deshabilitar auto-select para evitar comportamientos inesperados
-                window.google.accounts.id.disableAutoSelect();
+                    // Deshabilitar auto-select para evitar comportamientos inesperados
+                    window.google.accounts.id.disableAutoSelect();
 
-                // Renderizar el botón de Google Sign-In
-                const signInButton = document.getElementById('googleSignInButton');
-                if (signInButton && signInButton.children.length === 0) {
-                    try {
+                    // Renderizar el botón de Google Sign-In
+                    const signInButton = document.getElementById('googleSignInButton');
+                    if (signInButton) {
+                        // Limpiar contenido previo
+                        signInButton.innerHTML = '';
+                        
                         window.google.accounts.id.renderButton(
                             signInButton,
                             {
                                 theme: 'dark',
                                 size: 'large',
-                                width: '100%',
-                                text: 'signin_with'
+                                text: 'signin_with',
+                                logo_alignment: 'left'
                             }
                         );
-                    } catch (e) {
-                        console.log('Error renderizando botón:', e);
+                        console.log('Botón de Google Sign-In renderizado exitosamente');
+                    } else {
+                        console.warn('Contenedor googleSignInButton no encontrado');
                     }
+                } catch (e) {
+                    console.error('Error inicializando Google Sign-In:', e);
+                    setTimeout(initializeGoogleSignIn, 1000);
                 }
             } else {
-                // Re-intentar en 500ms si Google aún no está cargado
-                setTimeout(initializeGoogleSignIn, 500);
+                // Re-intentar en 1 segundo si Google aún no está cargado
+                console.log('Google aún no está cargado, reintentando...');
+                setTimeout(initializeGoogleSignIn, 1000);
             }
         }
 
         // Manejar respuesta de Google
         function handleCredentialResponse(response) {
+            console.log('handleCredentialResponse llamado');
+            
             // Prevenir múltiples ejecuciones
             if (userData) {
                 console.log('Ya existe sesión activa');
                 showDashboard();
+                return;
+            }
+
+            if (!response || !response.credential) {
+                console.error('Respuesta de Google inválida');
+                showToast('Error', 'Respuesta inválida de Google');
                 return;
             }
 
@@ -1684,6 +1709,8 @@
                 // Decodificar el JWT token de Google
                 const credential = response.credential;
                 const payload = JSON.parse(atob(credential.split('.')[1]));
+                
+                console.log('Token decodificado:', payload);
                 
                 userData = {
                     id: payload.sub,
@@ -1696,6 +1723,7 @@
 
                 // Guardar en localStorage
                 localStorage.setItem('userData', JSON.stringify(userData));
+                console.log('Datos guardados en localStorage');
                 
                 // Deshabilitar auto-select inmediatamente
                 if (window.google && window.google.accounts) {
@@ -1710,13 +1738,13 @@
                 setTimeout(() => {
                     hideLoader();
                     showDashboard();
-                }, 800);
+                }, 600);
                 
             } catch (error) {
                 userData = null; // Reset userData
                 hideLoader();
                 console.error('Error al procesar login:', error);
-                showToast('Error', 'No se pudo iniciar sesión. Por favor, usa login manual.');
+                showToast('Error', 'Error procesando autenticación. Por favor, intenta de nuevo.');
             }
         }
 
