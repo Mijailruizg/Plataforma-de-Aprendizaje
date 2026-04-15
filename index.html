@@ -1668,38 +1668,39 @@
                                 theme: 'dark',
                                 size: 'large',
                                 text: 'signin_with',
-                                logo_alignment: 'left'
+                                logo_alignment: 'left',
+                                locale: 'es'
                             }
                         );
-                        console.log('Botón de Google Sign-In renderizado exitosamente');
+                        console.log('✅ Botón de Google Sign-In renderizado exitosamente');
+                        console.log('📍 Origen:', window.location.origin);
                     } else {
-                        console.warn('Contenedor googleSignInButton no encontrado');
+                        console.error('❌ Contenedor googleSignInButton no encontrado');
                     }
                 } catch (e) {
-                    console.error('Error inicializando Google Sign-In:', e);
-                    setTimeout(initializeGoogleSignIn, 1000);
+                    console.error('❌ Error inicializando Google Sign-In:', e);
+                    setTimeout(initializeGoogleSignIn, 2000);
                 }
             } else {
-                // Re-intentar en 1 segundo si Google aún no está cargado
-                console.log('Google aún no está cargado, reintentando...');
+                console.log('⏳ Google aún no está cargado, reintentando en 1s...');
                 setTimeout(initializeGoogleSignIn, 1000);
             }
         }
 
         // Manejar respuesta de Google
         function handleCredentialResponse(response) {
-            console.log('handleCredentialResponse llamado');
+            console.log('🔐 handleCredentialResponse llamado');
             
             // Prevenir múltiples ejecuciones
             if (userData) {
-                console.log('Ya existe sesión activa');
+                console.log('⚠️ Ya existe sesión activa');
                 showDashboard();
                 return;
             }
 
             if (!response || !response.credential) {
-                console.error('Respuesta de Google inválida');
-                showToast('Error', 'Respuesta inválida de Google');
+                console.error('❌ Respuesta de Google inválida:', response);
+                showToast('Error', 'Respuesta inválida. Verifica que tu dominio esté autorizado en Google Cloud Console');
                 return;
             }
 
@@ -1708,9 +1709,16 @@
             try {
                 // Decodificar el JWT token de Google
                 const credential = response.credential;
-                const payload = JSON.parse(atob(credential.split('.')[1]));
+                const parts = credential.split('.');
                 
-                console.log('Token decodificado:', payload);
+                if (parts.length !== 3) {
+                    throw new Error('Token JWT inválido');
+                }
+                
+                const payload = JSON.parse(atob(parts[1]));
+                
+                console.log('✅ Token decodificado exitosamente');
+                console.log('👤 Usuario:', payload.name, '(' + payload.email + ')');
                 
                 userData = {
                     id: payload.sub,
@@ -1723,28 +1731,29 @@
 
                 // Guardar en localStorage
                 localStorage.setItem('userData', JSON.stringify(userData));
-                console.log('Datos guardados en localStorage');
+                console.log('💾 Datos guardados en localStorage');
                 
                 // Deshabilitar auto-select inmediatamente
                 if (window.google && window.google.accounts) {
                     try {
                         window.google.accounts.id.disableAutoSelect();
                     } catch (e) {
-                        console.log('Error deshabilitando auto-select');
+                        console.log('ℹ️ No se pudo deshabilitar auto-select');
                     }
                 }
                 
-                // Mostrar dashboard después de un pequeño delay
+                console.log('⏱️ Cargando dashboard en 600ms...');
                 setTimeout(() => {
                     hideLoader();
+                    console.log('📊 Mostrando dashboard');
                     showDashboard();
                 }, 600);
                 
             } catch (error) {
-                userData = null; // Reset userData
+                userData = null;
                 hideLoader();
-                console.error('Error al procesar login:', error);
-                showToast('Error', 'Error procesando autenticación. Por favor, intenta de nuevo.');
+                console.error('❌ Error al procesar login:', error);
+                showToast('Error', 'Error procesando autenticación: ' + error.message);
             }
         }
 
