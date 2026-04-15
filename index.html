@@ -170,11 +170,36 @@
         #googleSignInButton {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            align-items: center;
+            margin: 25px 0 30px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        #googleSignInButton:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(30, 136, 229, 0.4);
+            box-shadow: 0 5px 20px rgba(30, 136, 229, 0.1);
         }
 
         #googleSignInButton > div {
-            width: 100%;
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        /* Estilos para el botón de Google */
+        #googleSignInButton iframe {
+            width: 100% !important;
+            max-width: 280px;
+        }
+
+        div[data-client_id] {
+            width: 100% !important;
         }
 
         .divider {
