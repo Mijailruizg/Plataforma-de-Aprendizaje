@@ -1,31 +1,31 @@
 # 🚀 NEXUS Learning - Plataforma de Aprendizaje Futurista
 
-Una plataforma moderna de e-learning con interfaz futurista, autenticación flexible y seguimiento de progreso.
+Una plataforma moderna de e-learning con interfaz futurista, estructura modular y seguimiento de progreso inteligente.
 
 ![Status](https://img.shields.io/badge/Status-Activo-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-blue)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![Version](https://img.shields.io/badge/Version-2.0.0-blue)
 
 ---
 
 ## ✨ Características
 
-### 🔐 Autenticación Flexible
-- **Login Manual**: Email y contraseña con validaciones
-- **Crear Cuenta**: Registro completo y seguro
-- **Google Sign-In**: Autenticación con Google OAuth 2.0
+### 🔐 Autenticación Segura
+- **Login Manual**: Sistema de acceso rápido con email y contraseña.
+- **Crear Cuenta**: Registro de nuevos usuarios con persistencia local.
+- **Privacidad**: Sin trackers externos, enfocado en la simplicidad.
 
-### 📚 Sistema de Aprendizaje
-- 15 lecciones progresivas y desafiantes
-- Sistema de bloqueo inteligente (desbloquea completando la anterior)
-- Seguimiento de progreso en tiempo real
-- Persistencia de datos con localStorage
+### 📚 Estructura Modular (Oratoria & Carisma)
+- **Aprendizaje Agrupado**: Lecciones organizadas en módulos temáticos (Oratoria y Carisma).
+- **Interfaz Accordion**: Navegación fluida que permite desplegar/colapsar módulos.
+- **Progreso Automático**: El sistema marca las lecciones como completadas con solo abrirlas.
+- **Certificación**: Módulo especial de certificado holográfico que se desbloquea al completar el 100% del curso.
 
-### 🎨 Interfaz Moderna
-- Diseño futurista con gradientes cian y magenta
-- Animaciones suaves y efectos visuales
-- Responsive design (móvil, tablet, desktop)
-- Tema oscuro con elementos glassmorphism
+### 🎨 Interfaz Premium
+- **Diseño Glassmorphism**: Efectos de cristal, desenfoque y neón.
+- **Holographic Certificate**: Efecto visual único para el logro final.
+- **Totalmente Responsivo**: Optimizado para PC, Tablets y Celulares.
+- **Animaciones Futuristas**: Micro-interacciones y transiciones suaves.
 
 ---
 
@@ -38,92 +38,25 @@ Una plataforma moderna de e-learning con interfaz futurista, autenticación flex
 3. ¡La app se abre automáticamente en http://127.0.0.1:5500!
 ```
 
-### Opción 2: Python
-```bash
-cd "app de pacheco"
-python -m http.server 8000
-# Accede a http://localhost:8000
-```
-
-### Opción 3: Node.js
-```bash
-npm install -g http-server
-http-server
-# Accede a http://localhost:8080
-```
+### Opción 2: Abrir archivo directamente
+Simplemente haz doble clic en `index.html` en tu navegador favorito. ¡No requiere servidor para funcionar!
 
 ---
 
 ## 📖 Cómo Usar
 
-### Registrarse (Crear Cuenta)
-1. Haz clic en la pestaña **"Crear Cuenta"**
-2. Completa tus datos:
-   - Nombre completo
-   - Email
-   - Contraseña (mínimo 6 caracteres)
-   - Confirmar contraseña
-3. Haz clic en **"Crear Cuenta"**
-4. ¡Automáticamente iniciarás sesión!
+### Registro e Inicio
+1. Usa la pestaña **"Crear Cuenta"** para registrarte por primera vez.
+2. Ingresa tus datos y entrarás automáticamente al dashboard.
+3. Los datos se guardan en tu navegador, así que no los perderás al cerrar la pestaña.
 
-### Iniciar Sesión
-1. Usa la pestaña **"Iniciar Sesión"**
-2. Ingresa tu email y contraseña
-3. O haz clic en **"Iniciar sesión con Google"** para acceso rápido
+### Navegación de Módulos
+- Haz clic en los encabezados **ORATORIA** o **CARISMA** para ver las lecciones disponibles.
+- Toca cualquier lección para ver su contenido y marcarla automáticamente como completada.
 
-### Aprender y Progresar
-- Haz clic en cualquier lección para abrirla
-- Lee el contenido y aprende
-- Haz clic en **"Marcar como Completada ✓"** para desbloquear la siguiente
-- Ve tu progreso percentual en la barra superior
-- Los datos se guardan automáticamente
-
----
-
-## 🔧 Configuración de Google OAuth
-
-Si obtienes el error **"no registered origin"**, sigue estos pasos:
-
-### 1️⃣ Abre Google Cloud Console
-```
-https://console.cloud.google.com
-```
-
-### 2️⃣ Ve a Credenciales OAuth
-- Menú lateral izquierdo → **Credenciales**
-- Busca y haz clic en tu **OAuth 2.0 Client ID**
-
-### 3️⃣ Agrega Orígenes Autorizados
-
-En **"Orígenes autorizados de JavaScript"**, agrega:
-```
-http://localhost:5500
-http://127.0.0.1:5500
-http://localhost:8000
-http://127.0.0.1:8000
-```
-
-En **"URI de redireccionamiento autorizados"**, agrega lo mismo:
-```
-http://localhost:5500
-http://127.0.0.1:5500
-http://localhost:8000
-http://127.0.0.1:8000
-```
-
-### 4️⃣ Guarda y Espera
-- Click en **"Guardar"**
-- Espera 1-2 minutos para que se propague la configuración
-
-**Tu Client ID:**
-```
-235514959061-ui8807din6rghcqoou1h2lsqp42mognt.apps.googleusercontent.com
-```
-
-**URI de Redireccionamiento (GitHub Pages):**
-```
-https://mijailruizg.github.io/Plataforma-de-Aprendizaje/
-```
+### Obtener el Certificado
+- Una vez completes las 12 lecciones, aparecerá el módulo dorado de **CERTIFICADO**.
+- Haz clic en **"Reclamar Certificado"** para acceder al formulario oficial.
 
 ---
 
@@ -132,8 +65,7 @@ https://mijailruizg.github.io/Plataforma-de-Aprendizaje/
 ```
 Plataforma-de-Aprendizaje/
 ├── index.html                      # 📱 Aplicación principal (TODO-EN-UNO)
-├── README.md                       # 📖 Este archivo - Guía completa
-├── INSTRUCCIONES_GOOGLE_OAUTH.txt  # 🔐 Configuración OAuth detallada
+├── README.md                       # 📖 Guía actualizada del proyecto
 └── .gitignore                      # Git - Archivos ignorados
 ```
 
@@ -141,114 +73,52 @@ Plataforma-de-Aprendizaje/
 
 ## 💾 Almacenamiento de Datos
 
-Los datos se guardan en **localStorage** del navegador:
+Los datos se gestionan mediante la API de **localStorage** del navegador:
 
 | Clave | Descripción |
 |-------|-------------|
-| `userData` | Información del usuario actualmente logueado |
-| `completedLessons` | IDs de lecciones completadas por el usuario |
-| `registeredUsers` | Base de datos local de usuarios registrados |
-
-⚠️ **Nota Importante**: Para una aplicación en producción, necesitarías migrar a un backend con base de datos segura (MongoDB, PostgreSQL, etc.)
+| `userData` | Información de la sesión activa |
+| `completedLessons` | Listado de IDs de lecciones terminadas |
+| `registeredUsers` | Base de datos local de usuarios |
 
 ---
 
-## 🎓 Lecciones Disponibles (15 Temas)
+## 🎓 Plan de Estudios (12 Lecciones)
 
-| # | Título | Duración | Estado |
-|---|--------|----------|--------|
-| 1 | 🚀 Fundamentos del Futuro | 45 min | ✅ Disponible |
-| 2 | 🤖 Inteligencia Artificial | 60 min | ✅ Disponible |
-| 3 | 🥽 Realidad Extendida | 50 min | ✅ Disponible |
-| 4 | ⛓ Blockchain Descentralizado | 55 min | 🔒 Bloqueado* |
-| 5 | ⚛ Computación Cuántica | 65 min | 🔒 Bloqueado* |
-| 6 | 📡 IoT y Conectividad | 40 min | 🔒 Bloqueado* |
-| 7 | 🔒 Ciberseguridad Avanzada | 70 min | 🔒 Bloqueado* |
-| 8 | 🦾 Automatización Robótica | 45 min | 🔒 Bloqueado* |
-| 9 | 📊 Big Data & Analytics | 60 min | 🔒 Bloqueado* |
-| 10 | 📶 5G y Telecomunicaciones | 50 min | 🔒 Bloqueado* |
-| 11 | ⚡ Energías Renovables | 55 min | 🔒 Bloqueado* |
-| 12 | 🧬 Biotecnología | 65 min | 🔒 Bloqueado* |
-| 13 | 🔬 Nanotecnología | 60 min | 🔒 Bloqueado* |
-| 14 | 🚗 Transporte del Futuro | 45 min | 🔒 Bloqueado* |
-| 15 | 🏆 Proyecto Final Integrador | 90 min | 🔒 Bloqueado* |
+### 🎙️ Módulo: ORATORIA
+1. **Personalidad**: Libere su personalidad de orador.
+2. **Estructura**: El arte de hablar con estructura.
+3. **Escucha**: Habla para que te escuchen.
+4. **Voz Magnética**: Resonancia y presencia vocal.
+5. **Control Vocal**: El arte del control y modulación.
 
-*Se desbloquean progresivamente al completar la lección anterior
-
----
-
-## 🧪 Usuarios de Prueba
-
-Crea tus propios usuarios usando **"Crear Cuenta"** o usa:
-
-```
-Email: test@example.com
-Contraseña: password123
-```
+### ✨ Módulo: CARISMA
+6. **Primera Impresión**: Impacto irresistible inicial.
+7. **Confianza**: La confianza de los iconos.
+8. **Storytelling**: El poder de tus historias.
+9. **Persuasión**: Comunicación persuasiva y liderazgo.
+10. **Conversación**: El arte de la conversación casual.
+11. **Dinámicas**: Manejo de atención en grupos.
+12. **Humor**: El poder del humor inteligente.
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **HTML5** - Estructura semántica
-- **CSS3** - Estilos modernos
-  - Glassmorphism
-  - Gradientes CSS
-  - Animaciones suaves
-- **JavaScript Vanilla** - Interactividad sin frameworks
-- **Google Identity Services** - OAuth 2.0 nativo
-- **LocalStorage API** - Persistencia de datos
-
----
-
-## 📱 Compatibilidad de Navegadores
-
-| Navegador | Soporte |
-|-----------|---------|
-| Chrome/Chromium | ✅ Completo |
-| Firefox | ✅ Completo |
-| Safari | ✅ Completo |
-| Edge | ✅ Completo |
-| Móviles iOS/Android | ✅ Responsive |
+- **HTML5** - Estructura semántica avanzada.
+- **CSS3 Moderno** - Flexbox, Grid, Glassmorphism, Gradientes Dinámicos.
+- **JavaScript Vanilla** - Lógica de módulos, persistencia y animaciones.
+- **Google Fonts** - Orbitron y Rajdhani para el estilo futurista.
+- **LocalStorage API** - Para una experiencia sin necesidad de base de datos externa.
 
 ---
 
 ## 🚀 Roadmap - Próximas Mejoras
 
-- [ ] **Backend API** - Node.js/Express
-- [ ] **Base de Datos** - MongoDB o PostgreSQL
-- [ ] **Encriptación** - bcrypt para contraseñas
-- [ ] **JWT** - Autenticación por tokens
-- [ ] **Recuperación de Contraseña** - Email recovery
-- [ ] **Confirmación de Email** - Verificación de cuenta
-- [ ] **Multimedia** - Videos y PDFs embebidos
-- [ ] **Certificados** - Diplomas descargables
-- [ ] **Sistema de Puntos** - Gamificación
-- [ ] **Comunidad** - Foros y comentarios
-- [ ] **Analytics** - Estadísticas de aprendizaje
-- [ ] **Mobile App** - React Native/Flutter
-
----
-
-## ❓ Preguntas Frecuentes
-
-**P: ¿Los datos se pierden al cerrar el navegador?**  
-R: No. Se guardan indefinidamente en localStorage. Se pierden solo si limpias caché/cookies.
-
-**P: ¿Puedo usar esto en producción?**  
-R: Parcialmente. La autenticación necesita un backend seguro para proteger contraseñas.
-
-**P: ¿Cómo modifico las lecciones?**  
-R: Edita el objeto `lessonsData` en el script de index.html (alrededor de línea 1000).
-
-**P: ¿Por qué hay 3 formas de login?**  
-R: Para flexibilidad. Los usuarios pueden elegir: email, cuenta nueva, o Google.
-
-**P: ¿Dónde está el backend?**  
-R: Este es un prototipo frontend. El backend está en el roadmap.
-
-**P: ¿Puedo compartir esto en redes?**  
-R: Sí, es proyecto open-source con licencia MIT.
+- [ ] **Multimedia** - Incorporación de videos interactivos por lección.
+- [ ] **Backend Real** - Migración a Node.js/MongoDB para cuentas globales.
+- [ ] **Gamificación** - Sistema de medallas y puntos por módulo.
+- [ ] **PDF Export** - Generación automática del certificado en PDF.
 
 ---
 
@@ -256,61 +126,9 @@ R: Sí, es proyecto open-source con licencia MIT.
 
 - **Email**: mijailandresr@gmail.com
 - **GitHub**: [@Mijailruizg](https://github.com/Mijailruizg)
-- **Repositorio**: [Plataforma-de-Aprendizaje](https://github.com/Mijailruizg/Plataforma-de-Aprendizaje)
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la **Licencia MIT**. Eres libre de:
-- ✅ Usar comercialmente
-- ✅ Modificar el código
-- ✅ Distribuir
-- ✅ Usar en privado
-
-Solo requiere:
-- ⚠️ Incluir la licencia original
-- ⚠️ Indicar cambios significativos
-
----
-
-## 🤝 Cómo Contribuir
-
-¡Las contribuciones son bienvenidas! Para colaborar:
-
-1. **Fork** el repositorio
-2. **Crea rama** para tu feature:
-   ```bash
-   git checkout -b feature/AmazingFeature
-   ```
-3. **Commit** tus cambios:
-   ```bash
-   git commit -m 'Add: AmazingFeature'
-   ```
-4. **Push** a tu rama:
-   ```bash
-   git push origin feature/AmazingFeature
-   ```
-5. **Abre Pull Request** describiendo los cambios
-
----
-
-## 📊 Estadísticas del Proyecto
-
-- **Líneas de Código**: ~1600+
-- **Lecciones**: 15 completas
-- **Funciones**: 20+
-- **Estilos CSS**: 100+ clases
-- **Compatibilidad**: 5+ navegadores
-
----
-
-## 🎉 Agradecimientos
-
-Gracias por usar NEXUS Learning. ¡Esperamos que disfrutes tu experiencia de aprendizaje!
 
 ---
 
 **Hecho con ❤️ para revolucionar el aprendizaje digital**
 
-*Última actualización: 2 de abril de 2026*
+*Última actualización: 1 de mayo de 2026*
