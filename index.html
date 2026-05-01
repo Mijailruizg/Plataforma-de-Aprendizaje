@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus</title>
-
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>NEXUS - Plataforma de Aprendizaje</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap"
@@ -1679,6 +1677,217 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 0;
         }
+        /* Modules Styling */
+        .modules-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .module-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .module-card:hover {
+            border-color: rgba(30, 136, 229, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .module-header {
+            padding: 25px 40px;
+            background: linear-gradient(90deg, rgba(30, 136, 229, 0.1), transparent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .module-header:hover {
+            background: linear-gradient(90deg, rgba(30, 136, 229, 0.2), rgba(30, 136, 229, 0.05));
+        }
+
+        .module-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .module-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .module-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(30, 136, 229, 0.3);
+        }
+
+        .module-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.4s ease;
+            color: var(--primary);
+        }
+
+        .module-card.active .module-arrow {
+            transform: rotate(180deg);
+        }
+
+        .module-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .module-card.active .module-content {
+            max-height: 2500px;
+        }
+
+        .module-lessons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            padding: 30px;
+        }
+
+        .compact-lesson-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .compact-lesson-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .compact-lesson-card:hover {
+            background: rgba(30, 136, 229, 0.08);
+            border-color: rgba(30, 136, 229, 0.3);
+            transform: translateX(10px);
+        }
+
+        .compact-lesson-card:hover::before {
+            opacity: 1;
+        }
+
+        .lesson-id {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            opacity: 0.5;
+            min-width: 40px;
+            font-weight: 900;
+        }
+
+        .lesson-emoji {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+        }
+
+        .lesson-details {
+            flex: 1;
+        }
+
+        .lesson-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .lesson-summary {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+
+        /* Certificate Card Styling */
+        #certificate-module {
+            display: none;
+            margin-top: 40px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            animation: holographic 5s infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes holographic {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.4); }
+        }
+
+        .cert-badge {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px gold);
+        }
+
+        .cert-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .cert-btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .module-title { font-size: 1.2rem; }
+            .module-header { padding: 20px; }
+            .module-lessons { padding: 15px; }
+            .compact-lesson-card { padding: 15px; gap: 15px; }
+            .lesson-emoji { font-size: 1.4rem; }
+            .lesson-name { font-size: 1rem; }
+            .lesson-summary { font-size: 0.85rem; }
+        }
     </style>
 </head>
 
@@ -1724,15 +1933,7 @@
                 <button type="submit" class="form-button register-button">Crear Cuenta</button>
             </form>
 
-            <div class="divider">
-                <span>ó</span>
-            </div>
-
-            <!-- Google Sign In Container -->
-            <div id="googleSignInButton"></div>
-
             <div class="features">
-
             </div>
         </div>
     </div>
@@ -1757,6 +1958,10 @@
         <div class="dashboard-content">
             <div class="welcome-section">
                 <h2 class="welcome-title" id="welcomeTitle">¡Bienvenido de vuelta!</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p style="margin-top: 15px; color: rgba(255,255,255,0.6);">Has completado <span id="completedCount" style="color: var(--primary); font-weight: 700;">0</span> de 12 lecciones</p>
             </div>
 
             <div class="modules-container" id="modulesContainer">
@@ -1764,26 +1969,41 @@
                 <div class="module-card" id="module-oratoria">
                     <div class="module-header" onclick="toggleModule('oratoria')">
                         <div class="module-info">
+                            <span class="module-icon">🎙️</span>
                             <h2 class="module-title">ORATORIA</h2>
                         </div>
                         <span class="module-arrow">▼</span>
                     </div>
                     <div class="module-content">
                         <div class="module-lessons" id="lessons-oratoria">
+                            <!-- Lecciones de Oratoria se insertan aquí -->
                         </div>
                     </div>
                 </div>
 
+                <!-- Módulo Carisma -->
                 <div class="module-card" id="module-carisma">
                     <div class="module-header" onclick="toggleModule('carisma')">
                         <div class="module-info">
+                            <span class="module-icon">✨</span>
                             <h2 class="module-title">CARISMA</h2>
                         </div>
                         <span class="module-arrow">▼</span>
                     </div>
                     <div class="module-content">
                         <div class="module-lessons" id="lessons-carisma">
+                            <!-- Lecciones de Carisma se insertan aquí -->
                         </div>
+                    </div>
+                </div>
+
+                <!-- Módulo Certificado (Oculto hasta completar 12) -->
+                <div class="module-card" id="certificate-module">
+                    <div style="padding: 50px; text-align: center;">
+                        <div class="cert-badge">🏆</div>
+                        <h2 class="module-title" style="margin-bottom: 15px;">¡PROGRAMA COMPLETADO!</h2>
+                        <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Has demostrado maestría en Oratoria y Carisma. Ya puedes reclamar tu certificado oficial.</p>
+                        <a href="https://docs.google.com/forms/d/e/YOUR_GOOGLE_FORM_ID/viewform" target="_blank" class="cert-btn">RECLAMAR CERTIFICADO</a>
                     </div>
                 </div>
             </div>
@@ -2042,209 +2262,127 @@
             if (savedUser) {
                 userData = JSON.parse(savedUser);
                 showDashboard();
-            } else {
-                // Inicializar Google Sign-In solo si no hay sesión activa
-                initializeGoogleSignIn();
-            }
-        }
-
-        // Inicializar Google Sign-In
-        function initializeGoogleSignIn() {
-            if (window.google && window.google.accounts) {
-                try {
-                    window.google.accounts.id.initialize({
-                        client_id: GOOGLE_CLIENT_ID,
-                        callback: handleCredentialResponse,
-                        auto_select: false,
-                        itp_support: true
-                    });
-
-                    // Deshabilitar auto-select para evitar comportamientos inesperados
-                    window.google.accounts.id.disableAutoSelect();
-
-                    // Renderizar el botón de Google Sign-In
-                    const signInButton = document.getElementById('googleSignInButton');
-                    if (signInButton) {
-                        // Limpiar contenido previo
-                        signInButton.innerHTML = '';
-
-                        window.google.accounts.id.renderButton(
-                            signInButton,
-                            {
-                                theme: 'dark',
-                                size: 'large',
-                                text: 'signin_with',
-                                logo_alignment: 'left',
-                                locale: 'es'
-                            }
-                        );
-                        console.log('✅ Botón de Google Sign-In renderizado exitosamente');
-                        console.log('📍 Origen:', window.location.origin);
-                    } else {
-                        console.error('❌ Contenedor googleSignInButton no encontrado');
-                    }
-                } catch (e) {
-                    console.error('❌ Error inicializando Google Sign-In:', e);
-                    setTimeout(initializeGoogleSignIn, 2000);
-                }
-            } else {
-                console.log('⏳ Google aún no está cargado, reintentando en 1s...');
-                setTimeout(initializeGoogleSignIn, 1000);
-            }
-        }
-
-        // Manejar respuesta de Google
-        function handleCredentialResponse(response) {
-            console.log('🔐 handleCredentialResponse llamado');
-
-            // Prevenir múltiples ejecuciones
-            if (userData) {
-                console.log('⚠️ Ya existe sesión activa');
-                showDashboard();
-                return;
-            }
-
-            if (!response || !response.credential) {
-                console.error('❌ Respuesta de Google inválida:', response);
-                showToast('Error', 'Respuesta inválida. Verifica que tu dominio esté autorizado en Google Cloud Console');
-                return;
-            }
-
-            showLoader();
-
-            try {
-                // Decodificar el JWT token de Google
-                const credential = response.credential;
-                const parts = credential.split('.');
-
-                if (parts.length !== 3) {
-                    throw new Error('Token JWT inválido');
-                }
-
-                const payload = JSON.parse(atob(parts[1]));
-
-                console.log('✅ Token decodificado exitosamente');
-                console.log('👤 Usuario:', payload.name, '(' + payload.email + ')');
-
-                userData = {
-                    id: payload.sub,
-                    name: payload.name,
-                    email: payload.email,
-                    picture: payload.picture,
-                    token: credential,
-                    loginMethod: 'google'
-                };
-
-                // Guardar en localStorage
-                localStorage.setItem('userData', JSON.stringify(userData));
-                console.log('💾 Datos guardados en localStorage');
-
-                // Deshabilitar auto-select inmediatamente
-                if (window.google && window.google.accounts) {
-                    try {
-                        window.google.accounts.id.disableAutoSelect();
-                    } catch (e) {
-                        console.log('ℹ️ No se pudo deshabilitar auto-select');
-                    }
-                }
-
-                console.log('⏱️ Cargando dashboard en 600ms...');
-                setTimeout(() => {
-                    hideLoader();
-                    console.log('📊 Mostrando dashboard');
-                    showDashboard();
-                }, 600);
-
-            } catch (error) {
-                userData = null;
-                hideLoader();
-                console.error('❌ Error al procesar login:', error);
-                showToast('Error', 'Error procesando autenticación: ' + error.message);
             }
         }
 
         // Mostrar Dashboard
         function showDashboard() {
-            // Evitar múltiples llamadas
-            if (document.getElementById('dashboard').style.display === 'block') {
-                return;
-            }
-
-            // Verificar que userData esté disponible
-            if (!userData) {
-                console.warn('No hay datos de usuario disponibles');
-                return;
-            }
+            if (document.getElementById('dashboard').style.display === 'block') return;
+            if (!userData) return;
 
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
 
-            // Actualizar info de usuario
-            document.getElementById('userAvatar').src = userData.picture;
-            document.getElementById('userName').textContent = userData.name;
+            // Reparar codificación del nombre si detectamos mojibake de UTF-8
+            let name = userData.name || 'Usuario';
+            try {
+                if (name.includes('Ã')) {
+                    name = decodeURIComponent(escape(name));
+                    userData.name = name;
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    
+                    let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+                    let userIdx = registeredUsers.findIndex(u => u.email === userData.email);
+                    if (userIdx !== -1) {
+                        registeredUsers[userIdx].name = name;
+                        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                    }
+                }
+            } catch (e) {}
+
+            document.getElementById('userAvatar').src = userData.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=1e88e5&color=ffffff`;
+            document.getElementById('userName').textContent = name;
             document.getElementById('userEmail').textContent = userData.email;
-            document.getElementById('welcomeTitle').textContent = `¡Hola, ${userData.name.split(' ')[0]}!`;
+            document.getElementById('welcomeTitle').textContent = `¡Hola, ${name.split(' ')[0]}!`;
 
             renderLessons();
             updateProgress();
         }
 
-        // Renderizar lecciones
+        // Toggle Module Accordion
+        function toggleModule(moduleId) {
+            const card = document.getElementById(`module-${moduleId}`);
+            if (!card) return;
+            const isActive = card.classList.contains('active');
+            
+            if (isActive) {
+                card.classList.remove('active');
+            } else {
+                card.classList.add('active');
+            }
+        }
+
+        // Renderizar lecciones agrupadas por módulo
         function renderLessons() {
-            const grid = document.getElementById('lessonsGrid');
-            grid.innerHTML = '';
-
-            lessonsData.forEach((lesson, index) => {
-                const isCompleted = completedLessons.includes(lesson.id);
-                const isLocked = lesson.locked && !completedLessons.includes(lesson.id - 1);
-
-                const card = document.createElement('div');
-                card.className = `lesson-card ${isLocked ? 'locked' : ''}`;
-                card.onclick = () => !isLocked && openLesson(lesson);
-
-                card.innerHTML = `
-                    <div class="lesson-number">${String(lesson.id).padStart(2, '0')}</div>
-                    <div class="lesson-icon">${lesson.icon}</div>
-                    <h3 class="lesson-title">${lesson.title}</h3>
-                    <p class="lesson-desc">${lesson.desc}</p>
-                    <div class="lesson-meta">
+            const oratoriaContainer = document.getElementById('lessons-oratoria');
+            const carismaContainer = document.getElementById('lessons-carisma');
+            
+            if (!oratoriaContainer || !carismaContainer) return;
+            
+            oratoriaContainer.innerHTML = '';
+            carismaContainer.innerHTML = '';
+            
+            lessonsData.forEach((lesson) => {
+                const lessonElement = document.createElement('div');
+                lessonElement.className = 'compact-lesson-card';
+                lessonElement.onclick = () => openLesson(lesson);
+                
+                lessonElement.innerHTML = `
+                    <div class="lesson-id">${String(lesson.id).padStart(2, '0')}</div>
+                    <div class="lesson-emoji">${lesson.icon}</div>
+                    <div class="lesson-details">
+                        <div class="lesson-name">${lesson.title}</div>
+                        <div class="lesson-summary">${lesson.desc}</div>
                     </div>
                 `;
-
-                grid.appendChild(card);
+                
+                if (lesson.module === 'ORATORIA') {
+                    oratoriaContainer.appendChild(lessonElement);
+                } else if (lesson.module === 'CARISMA') {
+                    carismaContainer.appendChild(lessonElement);
+                }
             });
+
+            // Abrir el primer módulo por defecto
+            const firstModule = document.getElementById('module-oratoria');
+            if (firstModule) firstModule.classList.add('active');
         }
 
         // Abrir lección
         function openLesson(lesson) {
+            // Marcar como completada al tocar
+            if (!completedLessons.includes(lesson.id)) {
+                completedLessons.push(lesson.id);
+                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                updateProgress();
+                renderLessons();
+            }
+
             // Abrir directamente el Google Notebook si existe
             if (lesson && lesson.url) {
                 window.open(lesson.url, '_blank');
                 return;
             }
-
+            
             // Fallback al modal si no hay URL
             currentLesson = lesson;
-            document.getElementById('modalNumber').textContent = String(lesson.id).padStart(2, '0');
-            document.getElementById('modalTitle').textContent = lesson.title;
-            document.getElementById('modalSubtitle').textContent = lesson.desc;
-            document.getElementById('modalDescription').textContent =
+            const modalNum = document.getElementById('modalNumber');
+            if(modalNum) modalNum.textContent = String(lesson.id).padStart(2, '0');
+            
+            const modalTitle = document.getElementById('modalTitle');
+            if(modalTitle) modalTitle.textContent = lesson.title;
+            
+            const modalSub = document.getElementById('modalSubtitle');
+            if(modalSub) modalSub.textContent = lesson.desc;
+            
+            const modalDesc = document.getElementById('modalDescription');
+            if(modalDesc) modalDesc.textContent = 
                 `En esta lección explorarás ${lesson.title.toLowerCase()} en profundidad. ` +
                 `Aprenderás los conceptos fundamentales, casos de uso prácticos y las últimas tendencias en este campo. ` +
                 `Al finalizar, tendrás un proyecto práctico para aplicar tus conocimientos.`;
-
-            const btn = document.getElementById('completeBtn');
-            if (completedLessons.includes(lesson.id)) {
-                btn.textContent = 'Lección Completada ✓';
-                btn.style.background = 'linear-gradient(135deg, #26a69a, #00897b)';
-                btn.onclick = null;
-            } else {
-                btn.textContent = 'Marcar como Completada ✓';
-                btn.style.background = 'linear-gradient(135deg, var(--primary), var(--accent))';
-                btn.onclick = markAsComplete;
-            }
-
-            document.getElementById('lessonModal').style.display = 'flex';
+            
+            const modal = document.getElementById('lessonModal');
+            if(modal) modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
@@ -2262,20 +2400,10 @@
                 completedLessons.push(currentLesson.id);
                 localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
 
-                // Desbloquear siguiente lección
-                const nextLesson = lessonsData.find(l => l.id === currentLesson.id + 1);
-                if (nextLesson) {
-                    nextLesson.locked = false;
-                }
-
                 renderLessons();
                 updateProgress();
 
-                document.getElementById('completeBtn').textContent = 'Lección Completada ✓';
-                document.getElementById('completeBtn').style.background = 'linear-gradient(135deg, #26a69a, #00897b)';
-
                 showToast('¡Felicitaciones!', `Has completado: ${currentLesson.title}`);
-
                 setTimeout(() => closeModal(), 1500);
             }
         }
@@ -2283,11 +2411,27 @@
         // Actualizar progreso
         function updateProgress() {
             const completed = completedLessons.length;
-            const total = lessonsData.length;
+            const total = 12; // Total de lecciones
             const percentage = (completed / total) * 100;
+            
+            const countEl = document.getElementById('completedCount');
+            if(countEl) countEl.textContent = completed;
+            
+            const fillEl = document.getElementById('progressFill');
+            if(fillEl) fillEl.style.width = Math.min(percentage, 100) + '%';
 
-            document.getElementById('completedCount').textContent = completed;
-            document.getElementById('progressFill').style.width = percentage + '%';
+            // Mostrar módulo de certificado si completó las 12
+            const certModule = document.getElementById('certificate-module');
+            if (certModule) {
+                if (completed >= 12) {
+                    certModule.style.display = 'block';
+                    setTimeout(() => {
+                        certModule.scrollIntoView({ behavior: 'smooth' });
+                    }, 500);
+                } else {
+                    certModule.style.display = 'none';
+                }
+            }
         }
 
         // Cerrar sesión
