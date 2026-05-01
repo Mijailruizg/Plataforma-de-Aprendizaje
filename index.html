@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Learning - Plataforma Futurista</title>
-    
-    <!-- Google Identity Services -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -45,7 +44,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: 
+            background:
                 radial-gradient(ellipse at 20% 80%, rgba(30, 136, 229, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 20%, rgba(13, 71, 161, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 50%, rgba(69, 90, 100, 0.05) 0%, transparent 70%);
@@ -76,7 +75,11 @@
                 transform: translateY(100vh);
                 opacity: 0;
             }
-            50% { opacity: 0.4; }
+
+            50% {
+                opacity: 0.4;
+            }
+
             100% {
                 transform: translateY(-100vh);
                 opacity: 0;
@@ -89,7 +92,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(30, 136, 229, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(30, 136, 229, 0.02) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -159,67 +162,6 @@
             font-size: 1.1rem;
             margin-bottom: 30px;
             letter-spacing: 2px;
-        }
-
-        .g_id_signin {
-            margin: 20px auto;
-            display: flex;
-            justify-content: center;
-        }
-
-        #googleSignInButton {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 25px 0 30px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(30, 136, 229, 0.2);
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-
-        #googleSignInButton:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(30, 136, 229, 0.4);
-            box-shadow: 0 5px 20px rgba(30, 136, 229, 0.1);
-        }
-
-        #googleSignInButton > div {
-            width: 100% !important;
-            display: flex !important;
-            justify-content: center !important;
-        }
-
-        /* Estilos para el botón de Google */
-        #googleSignInButton iframe {
-            width: 100% !important;
-            max-width: 280px;
-        }
-
-        div[data-client_id] {
-            width: 100% !important;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 30px 0;
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #1e88e5, transparent);
-        }
-
-        .divider span {
-            padding: 0 20px;
-            font-size: 0.9rem;
         }
 
         .features {
@@ -390,168 +332,6 @@
             background: transparent;
         }
 
-        .lessons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            padding: 20px 0;
-        }
-
-        .lesson-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .lesson-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05), rgba(13, 71, 161, 0.05));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .lesson-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .lesson-card:hover::before {
-            opacity: 1;
-        }
-
-        .lesson-number {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.05);
-            z-index: 1;
-        }
-
-        .lesson-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.15);
-        }
-
-        .lesson-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #fff;
-            position: relative;
-            z-index: 2;
-        }
-
-        .lesson-desc {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .lesson-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .lesson-duration {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .lesson-status {
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .status-pending {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ffc107;
-            border: 1px solid rgba(255, 193, 7, 0.3);
-        }
-
-        .status-completed {
-            background: rgba(38, 166, 154, 0.15);
-            color: #26a69a;
-            border: 1px solid rgba(38, 166, 154, 0.3);
-        }
-
-        .status-locked {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .locked-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 15, 0.8);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .lesson-card.locked:hover .locked-overlay {
-            opacity: 1;
-        }
-
-        .lock-icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .lock-text {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-        }
-
         /* Lesson Detail Modal */
         .modal-overlay {
             display: none;
@@ -634,14 +414,12 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: 
-                repeating-linear-gradient(
-                    45deg,
+            background:
+                repeating-linear-gradient(45deg,
                     transparent,
                     transparent 10px,
                     rgba(30, 136, 229, 0.02) 10px,
-                    rgba(30, 136, 229, 0.02) 20px
-                );
+                    rgba(30, 136, 229, 0.02) 20px);
         }
 
         .play-btn {
@@ -841,7 +619,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .loader-text {
@@ -853,8 +633,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         /* Toast Notification */
@@ -907,25 +694,25 @@
             .lessons-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .header {
                 flex-direction: column;
                 gap: 20px;
                 padding: 20px;
             }
-            
+
             .welcome-title {
                 font-size: 1.8rem;
             }
-            
+
             .login-card {
                 padding: 40px 25px;
             }
-            
+
             .logo {
                 font-size: 2rem;
             }
-            
+
             .features {
                 grid-template-columns: 1fr;
             }
@@ -940,20 +727,20 @@
                 align-items: center;
                 justify-content: center;
             }
-            
+
             .login-card {
                 padding: 20px 15px;
                 max-width: 100%;
                 border-radius: 16px;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             }
-            
+
             .logo {
                 font-size: 1.6rem;
                 margin-bottom: 5px;
                 letter-spacing: 1px;
             }
-            
+
             .subtitle {
                 font-size: 0.8rem;
                 margin-bottom: 15px;
@@ -964,7 +751,7 @@
                 display: flex;
                 gap: 0;
                 margin-bottom: 15px;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             .auth-tab {
@@ -988,43 +775,24 @@
                 border-radius: 8px;
             }
 
-            .divider {
-                margin: 12px 0;
-            }
-
-            .divider span {
-                padding: 0 12px;
-                font-size: 0.78rem;
-            }
-
-            #googleSignInButton {
-                margin: 12px 0 15px 0;
-                padding: 10px;
-                border-radius: 8px;
-            }
-
-            #googleSignInButton > div {
-                width: 100% !important;
-            }
-
             .features {
                 display: none;
             }
-            
+
             .welcome-section {
                 padding: 20px 15px;
                 margin-bottom: 25px;
             }
-            
+
             .welcome-title {
                 font-size: 1.3rem;
                 margin-bottom: 8px;
             }
-            
+
             .welcome-subtitle {
                 font-size: 0.9rem;
             }
-            
+
             .header {
                 flex-direction: row;
                 gap: 10px;
@@ -1044,7 +812,7 @@
                 font-size: 1.2rem;
                 margin: 0;
             }
-            
+
             .user-info {
                 width: auto;
                 flex-direction: row;
@@ -1057,7 +825,7 @@
                 height: 35px;
                 margin: 0;
             }
-            
+
             .user-details {
                 text-align: left;
                 display: flex;
@@ -1068,11 +836,11 @@
             .user-details h3 {
                 font-size: 0.85rem;
             }
-            
+
             .user-details p {
                 font-size: 0.7rem;
             }
-            
+
             .logout-btn {
                 padding: 8px 12px;
                 font-size: 0.75rem;
@@ -1080,70 +848,19 @@
                 min-height: auto;
                 white-space: nowrap;
             }
-            
-            .lessons-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                padding: 0;
-            }
-            
-            .lesson-card {
-                padding: 14px;
-                border-radius: 12px;
-            }
 
-            .lesson-number {
-                font-size: 1.8rem;
-                opacity: 0.03;
-                top: 10px;
-                right: 10px;
-            }
-            
-            .lesson-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 1.3rem;
-                margin-bottom: 10px;
-            }
-            
-            .lesson-title {
-                font-size: 0.95rem;
-            }
-            
-            .lesson-desc {
-                font-size: 0.8rem;
-                margin-bottom: 10px;
-            }
-
-            .lesson-meta {
-                flex-direction: row;
-                gap: 8px;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .lesson-duration {
-                font-size: 0.75rem;
-            }
-
-            .lesson-status {
-                align-self: auto;
-                padding: 4px 10px;
-                font-size: 0.65rem;
-            }
-            
             .modal-overlay {
                 padding: 8px;
                 padding-top: 30px;
             }
-            
+
             .modal-content {
                 width: 100%;
                 max-height: calc(100vh - 60px);
                 border-radius: 12px;
                 padding: 0;
             }
-            
+
             .modal-header {
                 padding: 15px;
             }
@@ -1155,20 +872,20 @@
                 top: 12px;
                 right: 12px;
             }
-            
+
             .modal-header h2 {
                 font-size: 1.2rem;
             }
-            
+
             .modal-header p {
                 font-size: 0.85rem;
                 margin-top: 8px;
             }
-            
+
             .modal-body {
                 padding: 15px;
             }
-            
+
             .lesson-content h2 {
                 font-size: 1.1rem;
                 margin-bottom: 12px;
@@ -1184,7 +901,7 @@
                 font-size: 0.95rem;
                 margin: 15px 0 10px 0;
             }
-            
+
             .complete-btn,
             .notebook-btn {
                 padding: 11px 15px;
@@ -1202,7 +919,7 @@
             .resources-list {
                 margin-top: 15px;
             }
-            
+
             .resources-list li {
                 padding: 10px;
                 gap: 10px;
@@ -1210,7 +927,7 @@
                 margin-bottom: 8px;
                 font-size: 0.85rem;
             }
-            
+
             .resource-icon {
                 font-size: 1.1rem;
                 width: 35px;
@@ -1223,7 +940,7 @@
                 margin-bottom: 15px;
                 border-radius: 10px;
             }
-            
+
             .play-btn {
                 width: 60px;
                 height: 60px;
@@ -1239,7 +956,7 @@
                 margin: 15px auto 0;
             }
         }
-        
+
         /* Mobile Responsive - Small Phones */
         @media (max-width: 360px) {
             .login-container {
@@ -1250,13 +967,13 @@
                 padding: 16px 12px;
                 border-radius: 14px;
             }
-            
+
             .logo {
                 font-size: 1.3rem;
                 letter-spacing: 0.5px;
                 margin-bottom: 4px;
             }
-            
+
             .subtitle {
                 font-size: 0.75rem;
                 margin-bottom: 12px;
@@ -1288,35 +1005,20 @@
                 border-radius: 6px;
             }
 
-            .divider {
-                margin: 10px 0;
-            }
-
-            .divider span {
-                padding: 0 10px;
-                font-size: 0.7rem;
-            }
-
-            #googleSignInButton {
-                margin: 10px 0 12px 0;
-                padding: 8px;
-                border-radius: 6px;
-            }
-
             .features {
                 display: none;
             }
-            
+
             .welcome-section {
                 padding: 15px 10px;
                 margin-bottom: 15px;
             }
-            
+
             .welcome-title {
                 font-size: 1.1rem;
                 margin-bottom: 6px;
             }
-            
+
             .welcome-subtitle {
                 font-size: 0.8rem;
             }
@@ -1340,7 +1042,7 @@
                 font-size: 1rem;
                 margin: 0;
             }
-            
+
             .user-info {
                 width: auto;
                 flex-direction: row;
@@ -1360,15 +1062,15 @@
                 flex-direction: column;
                 gap: 1px;
             }
-            
+
             .user-details h3 {
                 font-size: 0.75rem;
             }
-            
+
             .user-details p {
                 font-size: 0.65rem;
             }
-            
+
             .logout-btn {
                 padding: 7px 10px;
                 font-size: 0.7rem;
@@ -1377,63 +1079,12 @@
                 border-radius: 6px;
                 white-space: nowrap;
             }
-            
-            .lessons-grid {
-                gap: 10px;
-                padding: 0;
-            }
-            
-            .lesson-card {
-                padding: 11px;
-                border-radius: 10px;
-            }
 
-            .lesson-number {
-                font-size: 1.5rem;
-                top: 8px;
-                right: 8px;
-            }
-            
-            .lesson-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 1.1rem;
-                margin-bottom: 8px;
-            }
-            
-            .lesson-title {
-                font-size: 0.85rem;
-                margin-bottom: 6px;
-            }
-            
-            .lesson-desc {
-                font-size: 0.75rem;
-                line-height: 1.3;
-                margin-bottom: 8px;
-            }
-
-            .lesson-meta {
-                flex-direction: row;
-                gap: 6px;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .lesson-duration {
-                font-size: 0.7rem;
-            }
-
-            .lesson-status {
-                align-self: auto;
-                padding: 3px 8px;
-                font-size: 0.6rem;
-            }
-            
             .modal-overlay {
                 padding: 5px;
                 padding-top: 25px;
             }
-            
+
             .modal-content {
                 width: 100%;
                 max-height: calc(100vh - 50px);
@@ -1447,15 +1098,15 @@
                 top: 10px;
                 right: 10px;
             }
-            
+
             .modal-header {
                 padding: 12px;
             }
-            
+
             .modal-header h2 {
                 font-size: 1.05rem;
             }
-            
+
             .modal-header p {
                 font-size: 0.8rem;
                 margin-top: 6px;
@@ -1464,11 +1115,11 @@
             .lesson-number {
                 display: none;
             }
-            
+
             .modal-body {
                 padding: 12px;
             }
-            
+
             .lesson-content h2 {
                 font-size: 0.95rem;
                 margin-bottom: 10px;
@@ -1484,7 +1135,7 @@
                 font-size: 0.9rem;
                 margin: 12px 0 8px 0;
             }
-            
+
             .complete-btn,
             .notebook-btn {
                 padding: 10px 12px;
@@ -1502,7 +1153,7 @@
             .resources-list {
                 margin-top: 12px;
             }
-            
+
             .resources-list li {
                 padding: 9px;
                 gap: 8px;
@@ -1518,20 +1169,20 @@
             .resources-list li p {
                 font-size: 0.65rem;
             }
-            
+
             .resource-icon {
                 font-size: 1rem;
                 width: 32px;
                 height: 32px;
                 min-width: 32px;
             }
-            
+
             .video-placeholder {
                 height: 140px;
                 margin-bottom: 12px;
                 border-radius: 8px;
             }
-            
+
             .play-btn {
                 width: 55px;
                 height: 55px;
@@ -1572,7 +1223,7 @@
             padding: 15px;
             background: transparent;
             border: none;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255, 255, 255, 0.5);
             font-family: 'Orbitron', sans-serif;
             cursor: pointer;
             border-bottom: 2px solid transparent;
@@ -1589,7 +1240,7 @@
         }
 
         .auth-tab:hover {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .auth-form {
@@ -1604,7 +1255,7 @@
             width: 100%;
             padding: 15px;
             margin-bottom: 15px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(30, 136, 229, 0.2);
             border-radius: 10px;
             color: #fff;
@@ -1664,12 +1315,224 @@
             display: flex;
             gap: 10px;
             margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 0;
         }
 
+        /* Modules Styling */
+        .modules-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .module-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .module-card:hover {
+            border-color: rgba(30, 136, 229, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .module-header {
+            padding: 25px 40px;
+            background: linear-gradient(90deg, rgba(30, 136, 229, 0.1), transparent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .module-header:hover {
+            background: linear-gradient(90deg, rgba(30, 136, 229, 0.2), rgba(30, 136, 229, 0.05));
+        }
+
+        .module-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .module-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .module-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(30, 136, 229, 0.3);
+        }
+
+        .module-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.4s ease;
+            color: var(--primary);
+        }
+
+        .module-card.active .module-arrow {
+            transform: rotate(180deg);
+        }
+
+        .module-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .module-card.active .module-content {
+            max-height: 2500px;
+        }
+
+        .module-lessons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            padding: 30px;
+        }
+
+        .compact-lesson-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .compact-lesson-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .compact-lesson-card:hover {
+            background: rgba(30, 136, 229, 0.08);
+            border-color: rgba(30, 136, 229, 0.3);
+            transform: translateX(10px);
+        }
+
+        .compact-lesson-card:hover::before {
+            opacity: 1;
+        }
+
+        .lesson-id {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            opacity: 0.5;
+            min-width: 40px;
+            font-weight: 900;
+        }
+
+        .lesson-emoji {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+        }
+
+        .lesson-details {
+            flex: 1;
+        }
+
+        .lesson-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .lesson-summary {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+
+        /* Certificate Card Styling */
+        #certificate-module {
+            display: none;
+            margin-top: 40px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            animation: holographic 5s infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes holographic {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.4); }
+        }
+
+        .cert-badge {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px gold);
+        }
+
+        .cert-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .cert-btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .module-title { font-size: 1.2rem; }
+            .module-header { padding: 20px; }
+            .module-lessons { padding: 15px; }
+            .compact-lesson-card { padding: 15px; gap: 15px; }
+            .lesson-emoji { font-size: 1.4rem; }
+            .lesson-name { font-size: 1rem; }
+            .lesson-summary { font-size: 0.85rem; }
+        }
     </style>
 </head>
+
 <body>
     <!-- Background Effects -->
     <div class="bg-animation"></div>
@@ -1687,7 +1550,7 @@
         <div class="login-card">
             <h1 class="logo">NEXUS</h1>
             <p class="subtitle">Plataforma de Aprendizaje</p>
-            
+
             <!-- Tabs de Login/Registro -->
             <div class="tabs-container">
                 <button id="loginTab" class="auth-tab active" onclick="switchTab('login')">Iniciar Sesión</button>
@@ -1705,23 +1568,18 @@
             <form id="registerForm" class="auth-form" onsubmit="event.preventDefault(); registerUser();">
                 <input type="text" id="registerName" class="form-input" placeholder="Nombre completo" required>
                 <input type="email" id="registerEmail" class="form-input" placeholder="Correo electrónico" required>
-                <input type="password" id="registerPassword" class="form-input" placeholder="Contraseña (mín. 6 caracteres)" required>
-                <input type="password" id="registerPasswordConfirm" class="form-input" placeholder="Confirmar contraseña" required>
+                <input type="password" id="registerPassword" class="form-input"
+                    placeholder="Contraseña (mín. 6 caracteres)" required>
+                <input type="password" id="registerPasswordConfirm" class="form-input"
+                    placeholder="Confirmar contraseña" required>
                 <button type="submit" class="form-button register-button">Crear Cuenta</button>
             </form>
 
-            <div class="divider">
-                <span>ó</span>
-            </div>
-
-            <!-- Google Sign In Container -->
-            <div id="googleSignInButton"></div>
-
             <div class="features">
 
-                </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Dashboard -->
@@ -1743,10 +1601,54 @@
         <div class="dashboard-content">
             <div class="welcome-section">
                 <h2 class="welcome-title" id="welcomeTitle">¡Bienvenido de vuelta!</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p style="margin-top: 15px; color: rgba(255,255,255,0.6);">Has completado <span id="completedCount" style="color: var(--primary); font-weight: 700;">0</span> de 12 lecciones</p>
             </div>
 
-            <div class="lessons-grid" id="lessonsGrid">
-                <!-- Las lecciones se generan dinámicamente -->
+            <div class="modules-container" id="modulesContainer">
+                <!-- Módulo Oratoria -->
+                <div class="module-card" id="module-oratoria">
+                    <div class="module-header" onclick="toggleModule('oratoria')">
+                        <div class="module-info">
+                            <span class="module-icon">🎙️</span>
+                            <h2 class="module-title">ORATORIA</h2>
+                        </div>
+                        <span class="module-arrow">▼</span>
+                    </div>
+                    <div class="module-content">
+                        <div class="module-lessons" id="lessons-oratoria">
+                            <!-- Lecciones de Oratoria se insertan aquí -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo Carisma -->
+                <div class="module-card" id="module-carisma">
+                    <div class="module-header" onclick="toggleModule('carisma')">
+                        <div class="module-info">
+                            <span class="module-icon">✨</span>
+                            <h2 class="module-title">CARISMA</h2>
+                        </div>
+                        <span class="module-arrow">▼</span>
+                    </div>
+                    <div class="module-content">
+                        <div class="module-lessons" id="lessons-carisma">
+                            <!-- Lecciones de Carisma se insertan aquí -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo Certificado (Oculto hasta completar 12) -->
+                <div class="module-card" id="certificate-module">
+                    <div style="padding: 50px; text-align: center;">
+                        <div class="cert-badge">🏆</div>
+                        <h2 class="module-title" style="margin-bottom: 15px;">¡PROGRAMA COMPLETADO!</h2>
+                        <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem;">Has demostrado maestría en Oratoria y Carisma. Ya puedes reclamar tu certificado oficial.</p>
+                        <a href="https://docs.google.com/forms/d/e/YOUR_GOOGLE_FORM_ID/viewform" target="_blank" class="cert-btn">RECLAMAR CERTIFICADO</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1756,8 +1658,12 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
                 <button class="modal-close" onclick="closeModal()">×</button>
-                <div class="lesson-number" id="modalNumber" style="position: relative; top: auto; right: auto; font-size: 5rem; opacity: 0.1; margin-bottom: -30px;">01</div>
-                <h2 id="modalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--primary);">Título de la Lección</h2>
+                <div class="lesson-number" id="modalNumber"
+                    style="position: relative; top: auto; right: auto; font-size: 5rem; opacity: 0.1; margin-bottom: -30px;">
+                    01</div>
+                <h2 id="modalTitle"
+                    style="font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--primary);">Título de la
+                    Lección</h2>
                 <p id="modalSubtitle" style="color: rgba(255,255,255,0.6); margin-top: 10px;">Subtítulo descriptivo</p>
             </div>
             <div class="modal-body">
@@ -1765,12 +1671,13 @@
                     <div class="play-btn">▶</div>
                     <span class="video-label">Video de la lección (Próximamente)</span>
                 </div>
-                
+
                 <div class="lesson-content">
                     <h2>Contenido de la Lección</h2>
                     <p id="modalDescription">Descripción detallada de la lección...</p>
-                    
-                    <h3 style="font-family: 'Orbitron', sans-serif; color: var(--secondary); margin: 30px 0 20px;">Recursos</h3>
+
+                    <h3 style="font-family: 'Orbitron', sans-serif; color: var(--secondary); margin: 30px 0 20px;">
+                        Recursos</h3>
                     <ul class="resources-list">
                         <li>
                             <div class="resource-icon">📄</div>
@@ -1794,12 +1701,14 @@
                             </div>
                         </li>
                     </ul>
-                    
+
                     <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
-                        <button class="complete-btn" id="completeBtn" onclick="markAsComplete()" style="flex: 1; min-width: 200px;">
+                        <button class="complete-btn" id="completeBtn" onclick="markAsComplete()"
+                            style="flex: 1; min-width: 200px;">
                             Marcar como Completada ✓
                         </button>
-                        <button class="notebook-btn" id="notebookBtn" onclick="openNotebook()" style="flex: 1; min-width: 200px;">
+                        <button class="notebook-btn" id="notebookBtn" onclick="openNotebook()"
+                            style="flex: 1; min-width: 200px;">
                             📖 Acceder al Notebook
                         </button>
                     </div>
@@ -1818,8 +1727,6 @@
     </div>
 
     <script>
-        const GOOGLE_CLIENT_ID = '746451591854-m6oa04jm0sj305pvnc0j79tl2b6v4pn0.apps.googleusercontent.com';
-
         // Datos de las 15 lecciones
         const lessonsData = [
             // MODULO 1: ORATORIA
@@ -1828,7 +1735,7 @@
             { id: 3, title: "Habla para que te escuchen", desc: "Técnicas fundamentales para que tu mensaje llegue claro, directo y memorable a cualquier público.", duration: "48 min", icon: "👂", locked: false, module: "ORATORIA", url: "https://notebooklm.google.com/notebook/be127691-4780-49ed-b05c-a2959f250fb9" },
             { id: 4, title: "La voz magnética", desc: "Desarrolla el poder de tu voz: entonación, resonancia, y presencia vocal que hipnotiza a la audiencia.", duration: "55 min", icon: "🎵", locked: false, module: "ORATORIA", url: "https://notebooklm.google.com/notebook/267f3cad-db12-4c2d-9f9a-419192c92497" },
             { id: 5, title: "El arte del control vocal", desc: "Domina todas las dimensiones de tu voz: ritmo, pausa, énfasis y modulación para máximo impacto.", duration: "60 min", icon: "🎙", locked: false, module: "ORATORIA", url: "https://notebooklm.google.com/notebook/2298e729-84a5-41e2-a09f-2dde068708aa" },
-            
+
             // MODULO 2: CARISMA
             { id: 6, title: "El poder de la primera impresión", desc: "Causa un impacto irresistible en los primeros segundos: presencia, lenguaje corporal y energía.", duration: "45 min", icon: "✨", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/174360ee-979e-4064-9180-e119fc53cea8" },
             { id: 7, title: "La confianza de los iconos", desc: "Construye una confianza inquebrantable como la de los grandes líderes y comunicadores del mundo.", duration: "55 min", icon: "👑", locked: false, module: "CARISMA", url: "https://notebooklm.google.com/notebook/07879d30-ce96-40f5-aef2-1c39e0ef4814" },
@@ -1886,7 +1793,7 @@
 
             // Verificar si el usuario existe
             const user = registeredUsers.find(u => u.email === email && u.password === password);
-            
+
             if (!user) {
                 showToast('Error', 'Correo o contraseña incorrectos');
                 return;
@@ -1999,124 +1906,6 @@
             if (savedUser) {
                 userData = JSON.parse(savedUser);
                 showDashboard();
-            } else {
-                // Inicializar Google Sign-In solo si no hay sesión activa
-                initializeGoogleSignIn();
-            }
-        }
-
-        // Inicializar Google Sign-In
-        function initializeGoogleSignIn() {
-            if (window.google && window.google.accounts) {
-                try {
-                    window.google.accounts.id.initialize({
-                        client_id: GOOGLE_CLIENT_ID,
-                        callback: handleCredentialResponse,
-                        auto_select: false,
-                        itp_support: true
-                    });
-
-                    // Deshabilitar auto-select para evitar comportamientos inesperados
-                    window.google.accounts.id.disableAutoSelect();
-
-                    // Renderizar el botón de Google Sign-In
-                    const signInButton = document.getElementById('googleSignInButton');
-                    if (signInButton) {
-                        // Limpiar contenido previo
-                        signInButton.innerHTML = '';
-                        
-                        window.google.accounts.id.renderButton(
-                            signInButton,
-                            {
-                                theme: 'dark',
-                                size: 'large',
-                                text: 'signin_with',
-                                logo_alignment: 'left',
-                                locale: 'es'
-                            }
-                        );
-                        console.log('✅ Botón de Google Sign-In renderizado exitosamente');
-                        console.log('📍 Origen:', window.location.origin);
-                    } else {
-                        console.error('❌ Contenedor googleSignInButton no encontrado');
-                    }
-                } catch (e) {
-                    console.error('❌ Error inicializando Google Sign-In:', e);
-                    setTimeout(initializeGoogleSignIn, 2000);
-                }
-            } else {
-                console.log('⏳ Google aún no está cargado, reintentando en 1s...');
-                setTimeout(initializeGoogleSignIn, 1000);
-            }
-        }
-
-        // Manejar respuesta de Google
-        function handleCredentialResponse(response) {
-            console.log('🔐 handleCredentialResponse llamado');
-            
-            // Prevenir múltiples ejecuciones
-            if (userData) {
-                console.log('⚠️ Ya existe sesión activa');
-                showDashboard();
-                return;
-            }
-
-            if (!response || !response.credential) {
-                console.error('❌ Respuesta de Google inválida:', response);
-                showToast('Error', 'Respuesta inválida. Verifica que tu dominio esté autorizado en Google Cloud Console');
-                return;
-            }
-
-            showLoader();
-            
-            try {
-                // Decodificar el JWT token de Google
-                const credential = response.credential;
-                const parts = credential.split('.');
-                
-                if (parts.length !== 3) {
-                    throw new Error('Token JWT inválido');
-                }
-                
-                const payload = JSON.parse(atob(parts[1]));
-                
-                console.log('✅ Token decodificado exitosamente');
-                console.log('👤 Usuario:', payload.name, '(' + payload.email + ')');
-                
-                userData = {
-                    id: payload.sub,
-                    name: payload.name,
-                    email: payload.email,
-                    picture: payload.picture,
-                    token: credential,
-                    loginMethod: 'google'
-                };
-
-                // Guardar en localStorage
-                localStorage.setItem('userData', JSON.stringify(userData));
-                console.log('💾 Datos guardados en localStorage');
-                
-                // Deshabilitar auto-select inmediatamente
-                if (window.google && window.google.accounts) {
-                    try {
-                        window.google.accounts.id.disableAutoSelect();
-                    } catch (e) {
-                        console.log('ℹ️ No se pudo deshabilitar auto-select');
-                    }
-                }
-                
-                console.log('⏱️ Cargando dashboard en 600ms...');
-                setTimeout(() => {
-                    hideLoader();
-                    console.log('📊 Mostrando dashboard');
-                    showDashboard();
-                }, 600);
-                
-            } catch (error) {
-                userData = null;
-                hideLoader();
-                console.error('❌ Error al procesar login:', error);
-                showToast('Error', 'Error procesando autenticación: ' + error.message);
             }
         }
 
@@ -2135,45 +1924,76 @@
 
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
-            
+
             // Actualizar info de usuario
             document.getElementById('userAvatar').src = userData.picture;
             document.getElementById('userName').textContent = userData.name;
             document.getElementById('userEmail').textContent = userData.email;
             document.getElementById('welcomeTitle').textContent = `¡Hola, ${userData.name.split(' ')[0]}!`;
-            
+
             renderLessons();
             updateProgress();
         }
 
-        // Renderizar lecciones
-        function renderLessons() {
-            const grid = document.getElementById('lessonsGrid');
-            grid.innerHTML = '';
+        // Toggle Module Accordion
+        function toggleModule(moduleId) {
+            const card = document.getElementById(`module-${moduleId}`);
+            if (!card) return;
+            const isActive = card.classList.contains('active');
             
-            lessonsData.forEach((lesson, index) => {
-                const isCompleted = completedLessons.includes(lesson.id);
-                const isLocked = lesson.locked && !completedLessons.includes(lesson.id - 1);
+            if (isActive) {
+                card.classList.remove('active');
+            } else {
+                card.classList.add('active');
+            }
+        }
+
+        // Renderizar lecciones agrupadas por módulo
+        function renderLessons() {
+            const oratoriaContainer = document.getElementById('lessons-oratoria');
+            const carismaContainer = document.getElementById('lessons-carisma');
+            
+            if (!oratoriaContainer || !carismaContainer) return;
+            
+            oratoriaContainer.innerHTML = '';
+            carismaContainer.innerHTML = '';
+            
+            lessonsData.forEach((lesson) => {
+                const lessonElement = document.createElement('div');
+                lessonElement.className = 'compact-lesson-card';
+                lessonElement.onclick = () => openLesson(lesson);
                 
-                const card = document.createElement('div');
-                card.className = `lesson-card ${isLocked ? 'locked' : ''}`;
-                card.onclick = () => !isLocked && openLesson(lesson);
-                
-                card.innerHTML = `
-                    <div class="lesson-number">${String(lesson.id).padStart(2, '0')}</div>
-                    <div class="lesson-icon">${lesson.icon}</div>
-                    <h3 class="lesson-title">${lesson.title}</h3>
-                    <p class="lesson-desc">${lesson.desc}</p>
-                    <div class="lesson-meta">
+                lessonElement.innerHTML = `
+                    <div class="lesson-id">${String(lesson.id).padStart(2, '0')}</div>
+                    <div class="lesson-emoji">${lesson.icon}</div>
+                    <div class="lesson-details">
+                        <div class="lesson-name">${lesson.title}</div>
+                        <div class="lesson-summary">${lesson.desc}</div>
                     </div>
                 `;
                 
-                grid.appendChild(card);
+                if (lesson.module === 'ORATORIA') {
+                    oratoriaContainer.appendChild(lessonElement);
+                } else if (lesson.module === 'CARISMA') {
+                    carismaContainer.appendChild(lessonElement);
+                }
             });
+
+            // Abrir el primer módulo por defecto
+            const firstModule = document.getElementById('module-oratoria');
+            if (firstModule) firstModule.classList.add('active');
         }
 
         // Abrir lección
         function openLesson(lesson) {
+            // Marcar como completada al tocar (según requerimiento del usuario)
+            if (!completedLessons.includes(lesson.id)) {
+                completedLessons.push(lesson.id);
+                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                updateProgress();
+                renderLessons(); // Re-renderizar para actualizar estados visuales si es necesario
+            }
+
             // Abrir directamente el Google Notebook si existe
             if (lesson && lesson.url) {
                 window.open(lesson.url, '_blank');
@@ -2182,26 +2002,36 @@
             
             // Fallback al modal si no hay URL
             currentLesson = lesson;
-            document.getElementById('modalNumber').textContent = String(lesson.id).padStart(2, '0');
-            document.getElementById('modalTitle').textContent = lesson.title;
-            document.getElementById('modalSubtitle').textContent = lesson.desc;
-            document.getElementById('modalDescription').textContent = 
+            const modalNum = document.getElementById('modalNumber');
+            if(modalNum) modalNum.textContent = String(lesson.id).padStart(2, '0');
+            
+            const modalTitle = document.getElementById('modalTitle');
+            if(modalTitle) modalTitle.textContent = lesson.title;
+            
+            const modalSub = document.getElementById('modalSubtitle');
+            if(modalSub) modalSub.textContent = lesson.desc;
+            
+            const modalDesc = document.getElementById('modalDescription');
+            if(modalDesc) modalDesc.textContent = 
                 `En esta lección explorarás ${lesson.title.toLowerCase()} en profundidad. ` +
                 `Aprenderás los conceptos fundamentales, casos de uso prácticos y las últimas tendencias en este campo. ` +
                 `Al finalizar, tendrás un proyecto práctico para aplicar tus conocimientos.`;
             
             const btn = document.getElementById('completeBtn');
-            if (completedLessons.includes(lesson.id)) {
-                btn.textContent = 'Lección Completada ✓';
-                btn.style.background = 'linear-gradient(135deg, #26a69a, #00897b)';
-                btn.onclick = null;
-            } else {
-                btn.textContent = 'Marcar como Completada ✓';
-                btn.style.background = 'linear-gradient(135deg, var(--primary), var(--accent))';
-                btn.onclick = markAsComplete;
+            if (btn) {
+                if (completedLessons.includes(lesson.id)) {
+                    btn.textContent = 'Lección Completada ✓';
+                    btn.style.background = 'linear-gradient(135deg, #26a69a, #00897b)';
+                    btn.onclick = null;
+                } else {
+                    btn.textContent = 'Marcar como Completada ✓';
+                    btn.style.background = 'linear-gradient(135deg, var(--primary), var(--accent))';
+                    btn.onclick = markAsComplete;
+                }
             }
             
-            document.getElementById('lessonModal').style.display = 'flex';
+            const modal = document.getElementById('lessonModal');
+            if(modal) modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
@@ -2218,21 +2048,21 @@
             if (!completedLessons.includes(currentLesson.id)) {
                 completedLessons.push(currentLesson.id);
                 localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-                
+
                 // Desbloquear siguiente lección
                 const nextLesson = lessonsData.find(l => l.id === currentLesson.id + 1);
                 if (nextLesson) {
                     nextLesson.locked = false;
                 }
-                
+
                 renderLessons();
                 updateProgress();
-                
+
                 document.getElementById('completeBtn').textContent = 'Lección Completada ✓';
                 document.getElementById('completeBtn').style.background = 'linear-gradient(135deg, #26a69a, #00897b)';
-                
+
                 showToast('¡Felicitaciones!', `Has completado: ${currentLesson.title}`);
-                
+
                 setTimeout(() => closeModal(), 1500);
             }
         }
@@ -2240,30 +2070,38 @@
         // Actualizar progreso
         function updateProgress() {
             const completed = completedLessons.length;
-            const total = lessonsData.length;
+            const total = 12; // Total de lecciones
             const percentage = (completed / total) * 100;
             
-            document.getElementById('completedCount').textContent = completed;
-            document.getElementById('progressFill').style.width = percentage + '%';
+            const countEl = document.getElementById('completedCount');
+            if(countEl) countEl.textContent = completed;
+            
+            const fillEl = document.getElementById('progressFill');
+            if(fillEl) fillEl.style.width = Math.min(percentage, 100) + '%';
+
+            // Mostrar módulo de certificado si completó las 12
+            const certModule = document.getElementById('certificate-module');
+            if (certModule) {
+                if (completed >= 12) {
+                    certModule.style.display = 'block';
+                    // Scroll suave hasta el certificado
+                    setTimeout(() => {
+                        certModule.scrollIntoView({ behavior: 'smooth' });
+                    }, 500);
+                } else {
+                    certModule.style.display = 'none';
+                }
+            }
         }
 
         // Cerrar sesión
         function logout() {
             showLoader();
-            
+
             // Limpiar datos
             localStorage.removeItem('userData');
             userData = null;
-            
-            // Revocar token de Google si existe
-            if (window.google && window.google.accounts) {
-                try {
-                    window.google.accounts.id.disableAutoSelect();
-                } catch (e) {
-                    console.log('Google Sign-in no disponible');
-                }
-            }
-            
+
             setTimeout(() => {
                 hideLoader();
                 document.getElementById('dashboard').style.display = 'none';
@@ -2271,9 +2109,6 @@
                 document.getElementById('loginEmail').value = '';
                 document.getElementById('loginPassword').value = '';
                 switchTab('login');
-                
-                // Reinitializar Google Sign-In
-                initializeGoogleSignIn();
             }, 800);
         }
 
@@ -2292,7 +2127,7 @@
             toast.querySelector('h4').textContent = title;
             document.getElementById('toastMessage').textContent = message;
             toast.classList.add('show');
-            
+
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
@@ -2306,4 +2141,5 @@
         }
     </script>
 </body>
+
 </html>
