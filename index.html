@@ -928,273 +928,109 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .lessons-grid {
-                grid-template-columns: 1fr;
+        /* Tablet and Desktop Refinements */
+        @media (min-width: 769px) {
+            .dashboard-content {
+                padding: 40px 20px;
             }
-
-            .header {
-                flex-direction: column;
-                gap: 20px;
-                padding: 20px;
-            }
-
-            .welcome-title {
-                font-size: 1.8rem;
-            }
-
-            .login-card {
-                padding: 40px 25px;
-            }
-
-            .logo {
-                font-size: 2rem;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
+            
+            .welcome-section {
+                margin-bottom: 50px;
+                padding: 40px;
             }
         }
 
-        /* Mobile Responsive - Medium Phones */
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 5px;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
+        /* Responsive - Tablet & Mobile */
+        @media (max-width: 768px) {
             .login-card {
-                padding: 20px 15px;
-                max-width: 100%;
-                border-radius: 16px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            }
-
-            .logo {
-                font-size: 1.6rem;
-                margin-bottom: 5px;
-                letter-spacing: 1px;
-            }
-
-            .subtitle {
-                font-size: 0.8rem;
-                margin-bottom: 15px;
-                letter-spacing: 0.5px;
-            }
-
-            .tabs-container {
-                display: flex;
-                gap: 0;
-                margin-bottom: 15px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .auth-tab {
-                flex: 1;
-                padding: 10px 8px;
-                font-size: 0.7rem;
-                letter-spacing: 0.3px;
-            }
-
-            .form-input {
-                padding: 10px;
-                margin-bottom: 10px;
-                font-size: 0.95rem;
-                border-radius: 8px;
-            }
-
-            .form-button {
-                padding: 10px;
-                margin-bottom: 12px;
-                font-size: 0.9rem;
-                border-radius: 8px;
-            }
-
-            .divider {
-                margin: 12px 0;
-            }
-
-            .divider span {
-                padding: 0 12px;
-                font-size: 0.78rem;
-            }
-
-            #googleSignInButton {
-                margin: 12px 0 15px 0;
-                padding: 10px;
-                border-radius: 8px;
-            }
-
-            #googleSignInButton>div {
-                width: 100% !important;
-            }
-
-            .features {
-                display: none;
-            }
-
-            .welcome-section {
-                padding: 20px 15px;
-                margin-bottom: 25px;
-            }
-
-            .welcome-title {
-                font-size: 1.3rem;
-                margin-bottom: 8px;
-            }
-
-            .welcome-subtitle {
-                font-size: 0.9rem;
+                padding: 30px 20px;
+                width: 92%;
+                max-width: 400px;
             }
 
             .header {
+                padding: 12px 15px;
                 flex-direction: row;
-                gap: 10px;
-                padding: 10px 15px;
-                margin: 0;
                 justify-content: space-between;
-                align-items: center;
-                width: 100%;
+                gap: 10px;
             }
 
-            .header-left {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .header-left .logo {
-                font-size: 1.2rem;
-                margin: 0;
-            }
-
-            .user-info {
-                width: auto;
-                flex-direction: row;
-                gap: 8px;
-                align-items: center;
-            }
-
-            .user-avatar {
-                width: 35px;
-                height: 35px;
-                margin: 0;
-            }
-
-            .user-details {
-                text-align: left;
-                display: flex;
-                flex-direction: column;
-                gap: 1px;
+            .logo {
+                font-size: 1.5rem;
             }
 
             .user-details h3 {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
 
             .user-details p {
-                font-size: 0.7rem;
+                display: none; /* Hide email on small screens to save space */
             }
 
-            .logout-btn {
-                padding: 8px 12px;
-                font-size: 0.75rem;
-                border-radius: 6px;
-                min-height: auto;
-                white-space: nowrap;
+            .welcome-title {
+                font-size: 1.5rem;
             }
 
-            .lessons-grid {
-                grid-template-columns: 1fr;
+            .modules-container {
+                gap: 20px;
+            }
+            
+            .module-header {
+                padding: 15px 20px;
+            }
+
+            .module-title {
+                font-size: 1.1rem;
+            }
+
+            .module-lessons {
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .compact-lesson-card {
+                padding: 12px 15px;
                 gap: 12px;
-                padding: 0;
             }
 
-            .lesson-card {
-                padding: 14px;
-                border-radius: 12px;
+            .lesson-id {
+                font-size: 1rem;
+                min-width: 25px;
             }
 
-            .lesson-number {
-                font-size: 1.8rem;
-                opacity: 0.03;
-                top: 10px;
-                right: 10px;
-            }
-
-            .lesson-icon {
-                width: 42px;
-                height: 42px;
+            .lesson-emoji {
                 font-size: 1.3rem;
-                margin-bottom: 10px;
             }
 
-            .lesson-title {
+            .lesson-name {
                 font-size: 0.95rem;
             }
 
-            .lesson-desc {
+            .lesson-summary {
                 font-size: 0.8rem;
-                margin-bottom: 10px;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
-
-            .lesson-meta {
-                flex-direction: row;
-                gap: 8px;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .lesson-duration {
-                font-size: 0.75rem;
-            }
-
-            .lesson-status {
-                align-self: auto;
-                padding: 4px 10px;
-                font-size: 0.65rem;
-            }
-
-            .modal-overlay {
-                padding: 8px;
-                padding-top: 30px;
-            }
-
+            
             .modal-content {
                 width: 100%;
-                max-height: calc(100vh - 60px);
-                border-radius: 12px;
-                padding: 0;
-            }
-
-            .modal-header {
-                padding: 15px;
-            }
-
-            .modal-close {
-                width: 32px;
-                height: 32px;
-                font-size: 1rem;
-                top: 12px;
-                right: 12px;
+                height: 100%;
+                max-height: 100vh;
+                border-radius: 0;
             }
 
             .modal-header h2 {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
 
-            .modal-header p {
-                font-size: 0.85rem;
-                margin-top: 8px;
+            .modal-close {
+                top: 15px;
+                right: 15px;
             }
 
-            .modal-body {
-                padding: 15px;
-            }
-
+            /* Lesson Content Mobile */
             .lesson-content h2 {
                 font-size: 1.1rem;
                 margin-bottom: 12px;
@@ -1221,10 +1057,6 @@
                 margin-bottom: 10px;
             }
 
-            .complete-btn {
-                margin-top: 15px;
-            }
-
             .resources-list {
                 margin-top: 15px;
             }
@@ -1235,13 +1067,6 @@
                 border-radius: 8px;
                 margin-bottom: 8px;
                 font-size: 0.85rem;
-            }
-
-            .resource-icon {
-                font-size: 1.1rem;
-                width: 35px;
-                height: 35px;
-                min-width: 35px;
             }
 
             .video-placeholder {
@@ -1256,13 +1081,35 @@
                 font-size: 1.5rem;
             }
 
-            .video-label {
-                font-size: 0.8rem;
-                margin-top: 10px;
-            }
-
             .progress-bar {
                 margin: 15px auto 0;
+            }
+        }
+
+        /* Extra Small Phones */
+        @media (max-width: 480px) {
+            .auth-tab {
+                font-size: 0.75rem;
+                padding: 12px 5px;
+            }
+
+            .form-input, .form-button {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .header-left .logo {
+                font-size: 1.1rem;
+            }
+            
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+            }
+
+            .logout-btn {
+                padding: 6px 10px;
+                font-size: 0.7rem;
             }
         }
 
