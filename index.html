@@ -17,6 +17,19 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            min-height: 100vh;
+        }
+
         :root {
             --primary: #1e88e5;
             --secondary: #455a64;
@@ -1038,10 +1051,11 @@
             .header {
                 flex-direction: row;
                 gap: 10px;
-                padding: 10px 12px;
-                margin: -20px -20px 20px -20px;
+                padding: 10px 15px;
+                margin: 0;
                 justify-content: space-between;
                 align-items: center;
+                width: 100%;
             }
 
             .header-left {
