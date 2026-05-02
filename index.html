@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEXUS - Plataforma de Aprendizaje</title>
 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap"
         rel="stylesheet">
@@ -1947,6 +1949,13 @@
                 <button type="submit" class="form-button register-button">Crear Cuenta</button>
             </form>
 
+            <div class="divider">
+                <span>ó</span>
+            </div>
+
+            <!-- Google Sign In Container -->
+            <div id="googleSignInButton"></div>
+
             <div class="features">
             </div>
         </div>
@@ -2276,6 +2285,102 @@
             if (savedUser) {
                 userData = JSON.parse(savedUser);
                 showDashboard();
+            } else {
+                // Inicializar Google Sign-In solo si no hay sesión activa
+                initializeGoogleSignIn();
+            }
+        }
+
+        // Inicializar Google Sign-In
+        function initializeGoogleSignIn() {
+            if (window.google && window.google.accounts) {
+                try {
+                    window.google.accounts.id.initialize({
+                        client_id: GOOGLE_CLIENT_ID,
+                        callback: handleCredentialResponse,
+                        auto_select: false,
+                        itp_support: true
+                    });
+
+                    // Deshabilitar auto-select para evitar comportamientos inesperados
+                    window.google.accounts.id.disableAutoSelect();
+
+                    // Renderizar el botón de Google Sign-In
+                    const signInButton = document.getElementById('googleSignInButton');
+                    if (signInButton) {
+                        // Limpiar contenido previo
+                        signInButton.innerHTML = '';
+
+                        window.google.accounts.id.renderButton(
+                            signInButton,
+                            {
+                                theme: 'dark',
+                                size: 'large',
+                                text: 'signin_with',
+                                logo_alignment: 'left',
+                                locale: 'es'
+                            }
+                        );
+                        console.log('✅ Botón de Google Sign-In renderizado exitosamente');
+                    }
+                } catch (e) {
+                    console.error('❌ Error inicializando Google Sign-In:', e);
+                    setTimeout(initializeGoogleSignIn, 2000);
+                }
+            } else {
+                console.log('⏳ Google aún no está cargado, reintentando en 1s...');
+                setTimeout(initializeGoogleSignIn, 1000);
+            }
+        }
+
+        // Manejar respuesta de Google
+        function handleCredentialResponse(response) {
+            console.log('🔐 handleCredentialResponse llamado');
+
+            if (userData) return;
+
+            if (!response || !response.credential) {
+                console.error('❌ Respuesta de Google inválida:', response);
+                showToast('Error', 'Respuesta inválida de Google');
+                return;
+            }
+
+            showLoader();
+
+            try {
+                // Decodificar el JWT token de Google
+                const credential = response.credential;
+                const payload = JSON.parse(atob(credential.split('.')[1]));
+
+                console.log('✅ Token decodificado exitosamente');
+
+                userData = {
+                    id: payload.sub,
+                    name: payload.name,
+                    email: payload.email,
+                    picture: payload.picture,
+                    token: credential,
+                    loginMethod: 'google'
+                };
+
+                // Guardar en localStorage
+                localStorage.setItem('userData', JSON.stringify(userData));
+
+                // Deshabilitar auto-select
+                if (window.google && window.google.accounts) {
+                    window.google.accounts.id.disableAutoSelect();
+                }
+
+                setTimeout(() => {
+                    hideLoader();
+                    showDashboard();
+                    showToast('¡Bienvenido!', `Hola ${userData.name}`);
+                }, 600);
+
+            } catch (error) {
+                userData = null;
+                hideLoader();
+                console.error('❌ Error al procesar login de Google:', error);
             }
         }
 
@@ -2451,30 +2556,30 @@
         // Cerrar sesión
         function logout() {
             showLoader();
-
-            // Limpiar datos
-            localStorage.removeItem('userData');
-            userData = null;
-
-            // Revocar token de Google si existe
-            if (window.google && window.google.accounts) {
+            
+            // Revocar token de Google si es necesario
+            if (userData && userData.loginMethod === 'google' && window.google) {
                 try {
-                    window.google.accounts.id.disableAutoSelect();
+                    window.google.accounts.id.revoke(userData.email, done => {
+                        console.log('Google session revoked');
+                    });
                 } catch (e) {
-                    console.log('Google Sign-in no disponible');
+                    console.log('Error revoking Google session');
                 }
             }
 
+            userData = null;
+            localStorage.removeItem('userData');
+            
             setTimeout(() => {
                 hideLoader();
                 document.getElementById('dashboard').style.display = 'none';
                 document.getElementById('loginScreen').style.display = 'flex';
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-                switchTab('login');
-
-                // Reinitializar Google Sign-In
+                
+                // Re-inicializar Google para el próximo login
                 initializeGoogleSignIn();
+                
+                showToast('Sesión Cerrada', 'Has salido del sistema correctamente');
             }, 800);
         }
 
