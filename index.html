@@ -1693,6 +1693,37 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 0;
         }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        #googleSignInButton {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
         /* Modules Styling */
         .modules-container {
             display: flex;
@@ -2314,9 +2345,11 @@
                         window.google.accounts.id.renderButton(
                             signInButton,
                             {
-                                theme: 'dark',
+                                theme: 'outline',
                                 size: 'large',
-                                text: 'signin_with',
+                                text: 'continue_with',
+                                shape: 'rectangular',
+                                width: 300,
                                 logo_alignment: 'left',
                                 locale: 'es'
                             }
